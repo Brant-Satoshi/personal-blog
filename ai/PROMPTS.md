@@ -1,5 +1,13 @@
 # 常用指令模板
 
+
+## Global Rules (Always Follow)
+
+```
+Read context first
+Before doing anything, read: docs/PRD.md, docs/ARCHITECTURE.md, ai/CONTEXT.md, ai/STYLE.md.
+```
+
 ## 生成新页面
 
 ```
