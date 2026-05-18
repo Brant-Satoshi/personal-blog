@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/site-shell";
 import { getAllPosts, type PostMeta } from "@/lib/posts";
-import { CATEGORIES } from "@/lib/categories";
+import { CATEGORIES, getCategoryName } from "@/lib/categories";
+import { getDict, getLocale, type Locale } from "@/lib/i18n";
 
-function ArticleCard({ post }: { post: PostMeta }) {
+function ArticleCard({ post, readMore }: { post: PostMeta; readMore: string }) {
   return (
     <article className="reveal flex flex-col">
       <Link href={`/${post.slug}`} className="group inline-flex w-fit">
@@ -23,16 +24,18 @@ function ArticleCard({ post }: { post: PostMeta }) {
         href={`/${post.slug}`}
         className="link-arrow mt-7 inline-flex w-fit items-center gap-2 text-[15px] font-bold text-ink hover:text-azure"
       >
-        Read more
+        {readMore}
         <span className="arrow-slide text-azure" aria-hidden>→</span>
       </Link>
     </article>
   );
 }
 
-export default function Home() {
+export default async function Home() {
   const posts = getAllPosts();
   const featured = posts.slice(0, 4);
+  const locale: Locale = await getLocale();
+  const t = getDict(locale);
 
   return (
     <div className="page-surface min-h-screen">
@@ -41,15 +44,15 @@ export default function Home() {
         <div className="grid grid-cols-1 gap-x-14 gap-y-16 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
-              Articles and tutorials
+              {t.home.articles}
             </h2>
 
             {posts.length === 0 ? (
-              <p className="mt-10 text-ink/60">No posts yet. Drop a markdown file in content/posts.</p>
+              <p className="mt-10 text-ink/60">{t.home.empty}</p>
             ) : (
               <div className="mt-12 flex flex-col gap-16">
                 {posts.map((post) => (
-                  <ArticleCard key={post.slug} post={post} />
+                  <ArticleCard key={post.slug} post={post} readMore={t.actions.readMore} />
                 ))}
               </div>
             )}
@@ -58,12 +61,12 @@ export default function Home() {
           <aside className="flex flex-col gap-14 lg:col-span-4 lg:col-start-9">
             <div className="reveal" style={{ animationDelay: "200ms" }}>
               <h3 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
-                Browse by category
+                {t.home.browseBy}
               </h3>
               <div className="mt-5 flex flex-wrap gap-2.5">
                 {CATEGORIES.map((cat) => (
                   <Link key={cat.slug} href={`/categories/${cat.slug}`} className="chip">
-                    {cat.name}
+                    {getCategoryName(cat, locale)}
                   </Link>
                 ))}
               </div>
@@ -71,14 +74,14 @@ export default function Home() {
                 href="/categories"
                 className="link-arrow mt-5 inline-flex items-center gap-2 text-[13.5px] font-semibold text-ink/70 hover:text-azure"
               >
-                See all categories
+                {t.actions.seeAllCategories}
                 <span className="arrow-slide text-azure" aria-hidden>→</span>
               </Link>
             </div>
 
             <div className="reveal" style={{ animationDelay: "300ms" }}>
               <h3 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
-                Popular content
+                {t.home.popular}
               </h3>
               <ul className="mt-6 flex flex-col">
                 {featured.map((post) => (

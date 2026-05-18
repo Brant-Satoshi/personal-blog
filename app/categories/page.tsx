@@ -1,15 +1,26 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/site-shell";
-import { CATEGORIES, getCategoryCounts } from "@/lib/categories";
+import {
+  CATEGORIES,
+  getCategoryCounts,
+  getCategoryDescription,
+  getCategoryName,
+} from "@/lib/categories";
+import { getDict, getLocale } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Categories",
-  description: "Browse posts by topic.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = getDict(await getLocale());
+  return {
+    title: t.meta.categoriesTitle,
+    description: t.meta.categoriesDescription,
+  };
+}
 
-export default function CategoriesPage() {
+export default async function CategoriesPage() {
   const counts = getCategoryCounts();
+  const locale = await getLocale();
+  const t = getDict(locale);
 
   return (
     <div className="page-surface min-h-screen">
@@ -18,13 +29,13 @@ export default function CategoriesPage() {
       <section className="mx-auto max-w-[1240px] px-6 pt-28 pb-16 sm:px-10 sm:pt-36">
         <div className="reveal max-w-2xl">
           <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
-            Browse by topic
+            {t.categories.eyebrow}
           </h2>
           <h1 className="mt-3 text-[42px] font-bold leading-[1.05] tracking-tight text-ink sm:text-[56px]">
-            Categories
+            {t.categories.title}
           </h1>
           <p className="mt-5 text-[17px] leading-relaxed text-ink/65 sm:text-[19px]">
-            A handful of buckets I sort writing into. Pick one to see everything filed under it.
+            {t.categories.subtitle}
           </p>
         </div>
       </section>
@@ -50,14 +61,14 @@ export default function CategoriesPage() {
                   <span className="flex-1">
                     <span className="flex items-baseline justify-between gap-3">
                       <span className="text-[20px] font-semibold text-ink group-hover:text-azure">
-                        {cat.name}
+                        {getCategoryName(cat, locale)}
                       </span>
                       <span className="text-[13px] text-ink/50">
-                        {count} {count === 1 ? "post" : "posts"}
+                        {t.categories.postsLabel(count)}
                       </span>
                     </span>
                     <span className="mt-1.5 block text-[15px] leading-snug text-ink/60">
-                      {cat.description}
+                      {getCategoryDescription(cat, locale)}
                     </span>
                   </span>
                 </Link>
