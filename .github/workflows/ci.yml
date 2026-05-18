@@ -25,12 +25,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
-          cache: "npm"
-
       - name: Detect package manager
         id: pm
         shell: bash
@@ -43,8 +37,12 @@ jobs:
       - name: Setup pnpm (if needed)
         if: steps.pm.outputs.name == 'pnpm'
         uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          version: 9
+          node-version: ${{ matrix.node }}
+          cache: ${{ steps.pm.outputs.name }}
 
       - name: Install deps
         run: ${{ steps.pm.outputs.install }}
