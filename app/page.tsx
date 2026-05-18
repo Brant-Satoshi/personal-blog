@@ -63,16 +63,16 @@ export default function Home() {
               </h3>
               <div className="mt-5 flex flex-wrap gap-2.5">
                 {CATEGORIES.map((cat) => (
-                  <Link key={cat} href="/" className="chip">
+                  <span key={cat} className="chip">
                     {cat}
-                  </Link>
+                  </span>
                 ))}
               </div>
             </div>
 
             <div className="reveal" style={{ animationDelay: "300ms" }}>
               <h3 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
-                Popular content
+                Recent posts
               </h3>
               <ul className="mt-6 flex flex-col">
                 {featured.map((post) => (

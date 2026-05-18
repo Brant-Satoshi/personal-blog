@@ -60,7 +60,7 @@ body {
   gap: 1.15rem;
   line-height: 1.75;
   font-size: 17px;
-  color: rgba(12, 19, 34, 0.78);
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
 }
 
 .markdown h2 {
@@ -262,7 +262,7 @@ body {
 }
 
 .dark .markdown {
-  color: rgba(230, 236, 245, 0.82);
+  color: color-mix(in srgb, var(--ink) 82%, transparent);
 }
 .dark .markdown a {
   text-decoration-color: rgba(124, 183, 255, 0.45);

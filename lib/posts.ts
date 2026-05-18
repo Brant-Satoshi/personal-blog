@@ -61,14 +61,24 @@ function extractExcerpt(content: string, maxLength = 320): string | undefined {
   return `${truncated.slice(0, lastSpace)}…`;
 }
 
-function slugify(text: string): string {
-  const slug = text
+function slugify(text: string, seen: Map<string, number>): string {
+  const base = text
     .toLowerCase()
     .replace(/<[^>]+>/g, "")
     .replace(/[^\p{L}\p{N}\s-]/gu, "")
     .trim()
     .replace(/\s+/g, "-");
-  return slug.length > 0 ? slug.slice(0, 80) : "section";
+  const slug = base.length > 0 ? base.slice(0, 80) : "section";
+  const count = seen.get(slug) ?? 0;
+  seen.set(slug, count + 1);
+  return count === 0 ? slug : `${slug}-${count}`;
+}
+
+function sanitizeHtml(html: string): string {
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gis, "")
+    .replace(/(<[^>]+?)\s+on\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi, "$1")
+    .replace(/href\s*=\s*["']?\s*javascript:[^"'\s>]*/gi, 'href="#"');
 }
 
 export function getAllPosts(): PostMeta[] {
@@ -112,11 +122,12 @@ export function getPostBySlug(slug: string): Post | null {
   const { data, content } = matter(raw);
 
   const toc: TocItem[] = [];
+  const seen = new Map<string, number>();
   const parser = new Marked({
     renderer: {
       heading(text: string, level: number) {
         const plain = stripHtml(text);
-        const id = slugify(plain);
+        const id = slugify(plain, seen);
         if (level === 2 || level === 3) {
           toc.push({ id, text: plain, depth: level });
         }
@@ -125,7 +136,7 @@ export function getPostBySlug(slug: string): Post | null {
     },
   });
 
-  const html = parser.parse(content) as string;
+  const html = sanitizeHtml(parser.parse(content) as string);
 
   return {
     slug,
