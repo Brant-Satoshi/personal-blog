@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/site-shell";
 import { getAllPosts, type PostMeta } from "@/lib/posts";
+import { CATEGORIES } from "@/lib/categories";
 
 function ArticleCard({ post }: { post: PostMeta }) {
   return (
@@ -28,8 +29,6 @@ function ArticleCard({ post }: { post: PostMeta }) {
     </article>
   );
 }
-
-const CATEGORIES = ["Code", "Systems", "Craft", "Notes", "Tools", "Essays"];
 
 export default function Home() {
   const posts = getAllPosts();
@@ -63,11 +62,18 @@ export default function Home() {
               </h3>
               <div className="mt-5 flex flex-wrap gap-2.5">
                 {CATEGORIES.map((cat) => (
-                  <Link key={cat} href="/" className="chip">
-                    {cat}
+                  <Link key={cat.slug} href={`/categories/${cat.slug}`} className="chip">
+                    {cat.name}
                   </Link>
                 ))}
               </div>
+              <Link
+                href="/categories"
+                className="link-arrow mt-5 inline-flex items-center gap-2 text-[13.5px] font-semibold text-ink/70 hover:text-azure"
+              >
+                See all categories
+                <span className="arrow-slide text-azure" aria-hidden>→</span>
+              </Link>
             </div>
 
             <div className="reveal" style={{ animationDelay: "300ms" }}>

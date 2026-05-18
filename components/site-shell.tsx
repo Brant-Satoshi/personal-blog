@@ -19,6 +19,7 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-9 text-[15px] font-medium text-ink/80 md:flex">
           <Link href="/" className="link-underline hover:text-ink">Posts</Link>
+          <Link href="/categories" className="link-underline hover:text-ink">Categories</Link>
           <Link href="/about" className="link-underline hover:text-ink">About</Link>
           <Link href="/" className="link-underline hover:text-ink">Notes</Link>
           <Link href="/about" className="link-underline hover:text-ink">Now</Link>
