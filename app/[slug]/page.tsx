@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/site-shell";
 import { getAllPosts, getPostBySlug, type TocItem } from "@/lib/posts";
 import { TableOfContents } from "./table-of-contents";
+import { getDict, getLocale, type Locale } from "@/lib/i18n";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -15,9 +16,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
+  const t = getDict(await getLocale());
 
   if (!post) {
-    return { title: "Post Not Found" };
+    return { title: t.meta.notFound };
   }
 
   return {
@@ -35,8 +37,11 @@ function ordinal(day: number): string {
   return `${day}th`;
 }
 
-function formatLongDate(dateStr: string): string {
+function formatLongDate(dateStr: string, locale: Locale): string {
   const d = new Date(dateStr);
+  if (locale === "zh") {
+    return `${d.getUTCFullYear()}年${d.getUTCMonth() + 1}月${d.getUTCDate()}日`;
+  }
   const month = d.toLocaleString("en-US", { month: "long", timeZone: "UTC" });
   const day = ordinal(d.getUTCDate());
   const year = d.getUTCFullYear();
@@ -51,12 +56,14 @@ export default async function PostPage({ params }: PageProps) {
     notFound();
   }
 
-  const publishedOn = formatLongDate(post.date);
-  const updatedOn = post.updated ? formatLongDate(post.updated) : null;
+  const locale = await getLocale();
+  const t = getDict(locale);
+  const publishedOn = formatLongDate(post.date, locale);
+  const updatedOn = post.updated ? formatLongDate(post.updated, locale) : null;
 
   const tocItems: TocItem[] =
     post.toc.length > 0
-      ? [{ id: "introduction", text: "Introduction", depth: 2 }, ...post.toc]
+      ? [{ id: "introduction", text: t.post.introduction, depth: 2 }, ...post.toc]
       : [];
 
   return (
@@ -74,19 +81,19 @@ export default async function PostPage({ params }: PageProps) {
           <p className="mt-7 text-[14.5px] text-ink/60">
             {post.category ? (
               <>
-                <em className="not-italic text-ink/50">Filed under </em>
+                <em className="not-italic text-ink/50">{t.post.filedUnder} </em>
                 <span className="font-semibold text-ink/85">{post.category}</span>
-                <em className="not-italic text-ink/50"> on </em>
+                <em className="not-italic text-ink/50"> {t.post.on} </em>
               </>
             ) : (
-              <em className="not-italic text-ink/50">Published on </em>
+              <em className="not-italic text-ink/50">{t.post.publishedOn} </em>
             )}
             <span className="font-medium text-ink/85">{publishedOn}</span>
             <span className="text-ink/50">.</span>
             {updatedOn ? (
               <>
                 {" "}
-                <em className="not-italic text-ink/50">Last updated on </em>
+                <em className="not-italic text-ink/50">{t.post.lastUpdated} </em>
                 <span className="font-medium text-ink/85">{updatedOn}</span>
                 <span className="text-ink/50">.</span>
               </>
@@ -105,7 +112,7 @@ export default async function PostPage({ params }: PageProps) {
           </article>
 
           <aside className="hidden lg:col-span-3 lg:col-start-10 lg:block">
-            <TableOfContents items={tocItems} />
+            <TableOfContents items={tocItems} title={t.post.toc} />
           </aside>
         </div>
       </section>
