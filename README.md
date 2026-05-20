@@ -68,10 +68,53 @@ npm start
 
 ### Docker
 
+Runs as a Next.js standalone app on port **3000**. Access via HTTP only: `http://<IP>:3000` (no Nginx/Caddy in this setup).
+
+**Local verification**
+
 ```bash
-docker build -t blog .
-docker run -p 3000:3000 blog
+docker compose build
+docker compose up
+# Open http://127.0.0.1:3000
+docker compose down
 ```
+
+**First deploy on a VPS**
+
+1. Install Docker on the VPS ([install guide](https://docs.docker.com/engine/install/)).
+2. Open port **3000** in the firewall and cloud security group.
+3. Clone the repo and start:
+
+```bash
+git clone <your-repo-url> personal-blog
+cd personal-blog
+docker compose up -d --build
+```
+
+Visit `http://<VPS_PUBLIC_IP>:3000`.
+
+**Update deployment**
+
+```bash
+cd personal-blog
+git pull
+docker compose up -d --build
+```
+
+Re-run `--build` after adding or editing files under `content/posts/` (routes are generated at image build time).
+
+**View logs**
+
+```bash
+docker compose logs -f
+```
+
+**Stop the service**
+
+```bash
+docker compose down
+```
+
 
 ### Self-hosted Server
 

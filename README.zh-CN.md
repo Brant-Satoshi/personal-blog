@@ -68,10 +68,53 @@ npm start
 
 ### Docker
 
+以 Next.js standalone 方式运行在 **3000** 端口，仅通过 HTTP 访问：`http://<IP>:3000`（本方案不包含 Nginx/Caddy）。
+
+**本地验证**
+
 ```bash
-docker build -t blog .
-docker run -p 3000:3000 blog
+docker compose build
+docker compose up
+# 浏览器打开 http://127.0.0.1:3000
+docker compose down
 ```
+
+**VPS 首次部署**
+
+1. 在 VPS 上安装 Docker（[安装说明](https://docs.docker.com/engine/install/)）。
+2. 在防火墙与云安全组中放行 **3000** 端口。
+3. 克隆仓库并启动：
+
+```bash
+git clone <你的仓库地址> personal-blog
+cd personal-blog
+docker compose up -d --build
+```
+
+浏览器访问 `http://<VPS公网IP>:3000`。
+
+**更新部署**
+
+```bash
+cd personal-blog
+git pull
+docker compose up -d --build
+```
+
+新增或修改 `content/posts/` 下的 Markdown 后，必须带 `--build` 重新构建镜像（路由在构建时生成）。
+
+**查看日志**
+
+```bash
+docker compose logs -f
+```
+
+**停止服务**
+
+```bash
+docker compose down
+```
+
 
 ### 自建服务器
 
