@@ -65,11 +65,18 @@ export default async function Home() {
               </h3>
               <div className="mt-5 flex flex-wrap gap-2.5">
                 {CATEGORIES.map((cat) => (
-                  <span key={cat.slug} className="chip">
+                  <Link key={cat.slug} href={`/categories/${cat.slug}`} className="chip">
                     {getCategoryName(cat, locale)}
-                  </span>
+                  </Link>
                 ))}
               </div>
+              <Link
+                href="/categories"
+                className="link-arrow mt-5 inline-flex items-center gap-2 text-[13.5px] font-semibold text-ink/70 hover:text-azure"
+              >
+                {t.actions.seeAllCategories}
+                <span className="arrow-slide text-azure" aria-hidden>→</span>
+              </Link>
             </div>
 
             <div className="reveal" style={{ animationDelay: "300ms" }}>

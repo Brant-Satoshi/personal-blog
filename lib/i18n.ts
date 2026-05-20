@@ -85,7 +85,7 @@ const en: Dict = {
   home: {
     articles: "Articles and tutorials",
     browseBy: "Browse by category",
-    popular: "Recent posts",
+    popular: "Popular content",
     empty: "No posts yet. Drop a markdown file in content/posts.",
   },
   categories: {
@@ -151,7 +151,7 @@ const zh: Dict = {
   home: {
     articles: "文章与教程",
     browseBy: "按分类浏览",
-    popular: "最新文章",
+    popular: "热门内容",
     empty: "暂无文章。请在 content/posts 目录新建一个 markdown 文件。",
   },
   categories: {

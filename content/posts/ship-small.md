@@ -2,6 +2,7 @@
 title: Ship Small, Learn Fast
 date: 2026-02-03
 summary: The smallest release that teaches you something beats the perfect plan.
+category: Essays
 ---
 
 Small releases reduce risk and keep momentum.

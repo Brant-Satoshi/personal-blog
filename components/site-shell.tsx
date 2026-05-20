@@ -3,7 +3,6 @@ import { Rss, Search } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageToggle } from "@/components/language-toggle";
 import { getDict, getLocale } from "@/lib/i18n";
-import { SITE_CONFIG } from "@/lib/config";
 
 export async function SiteHeader() {
   const locale = await getLocale();
@@ -20,24 +19,22 @@ export async function SiteHeader() {
           <span className="text-azure/40 transition-transform group-hover:rotate-12" aria-hidden>
             ◇
           </span>
-          <span>{SITE_CONFIG.author.lastName}</span>
+          <span>Satoshi</span>
         </Link>
 
         <nav className="hidden items-center gap-9 text-[15px] font-medium text-ink/80 md:flex">
           <Link href="/" className="link-underline hover:text-ink">{t.nav.posts}</Link>
           <Link href="/categories" className="link-underline hover:text-ink">{t.nav.categories}</Link>
           <Link href="/about" className="link-underline hover:text-ink">{t.nav.about}</Link>
-          <a href="#" className="link-underline hover:text-ink">{t.nav.notes}</a>
-          <a href="#" className="link-underline hover:text-ink">{t.nav.now}</a>
+          <Link href="/" className="link-underline hover:text-ink">{t.nav.notes}</Link>
+          <Link href="/about" className="link-underline hover:text-ink">{t.nav.now}</Link>
         </nav>
 
         <div className="flex items-center gap-1.5 text-ink/65">
           <button
             type="button"
             aria-label={t.actions.search}
-            disabled
-            aria-disabled="true"
-            className="rounded-full p-2.5 opacity-40 cursor-not-allowed"
+            className="rounded-full p-2.5 transition-colors hover:bg-ink/5 hover:text-ink"
           >
             <Search className="h-[18px] w-[18px]" strokeWidth={1.9} />
           </button>
@@ -46,9 +43,7 @@ export async function SiteHeader() {
           <button
             type="button"
             aria-label={t.actions.rss}
-            disabled
-            aria-disabled="true"
-            className="rounded-full p-2.5 opacity-40 cursor-not-allowed"
+            className="rounded-full p-2.5 transition-colors hover:bg-ink/5 hover:text-ink"
           >
             <Rss className="h-[18px] w-[18px]" strokeWidth={1.9} />
           </button>
@@ -65,7 +60,7 @@ export async function SiteFooter() {
   return (
     <footer className="border-t border-ink/10">
       <div className="mx-auto flex max-w-[1240px] flex-col items-start justify-between gap-4 px-6 py-10 text-[13px] text-ink/55 sm:flex-row sm:items-center sm:px-10">
-        <span>© {new Date().getUTCFullYear()} {SITE_CONFIG.copyright} · {t.footer.tag}</span>
+        <span>© {new Date().getUTCFullYear()} Brant · {t.footer.tag}</span>
         <div className="flex items-center gap-6">
           <Link href="/about" className="link-underline hover:text-ink">{t.footer.about}</Link>
           <Link href="/" className="link-underline hover:text-ink">{t.footer.rss}</Link>
