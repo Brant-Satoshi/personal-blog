@@ -26,6 +26,7 @@ type Dict = {
   actions: {
     search: string;
     rss: string;
+    menu: string;
     readMore: string;
     seeAllCategories: string;
     allCategories: string;
@@ -75,6 +76,7 @@ const en: Dict = {
   actions: {
     search: "Search",
     rss: "RSS feed",
+    menu: "Menu",
     readMore: "Read more",
     seeAllCategories: "See all categories",
     allCategories: "All categories",
@@ -141,6 +143,7 @@ const zh: Dict = {
   actions: {
     search: "搜索",
     rss: "RSS 订阅",
+    menu: "菜单",
     readMore: "阅读全文",
     seeAllCategories: "查看所有分类",
     allCategories: "所有分类",

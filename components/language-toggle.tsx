@@ -26,7 +26,7 @@ export function LanguageToggle({ locale, label }: Props) {
       type="button"
       onClick={toggle}
       aria-label={label}
-      className="flex items-center gap-1 rounded-full p-2.5 text-ink/65 transition-colors hover:bg-ink/5 hover:text-ink"
+      className="flex cursor-pointer items-center gap-1 rounded-full p-2.5 text-ink/65 transition-colors hover:bg-ink/5 hover:text-ink"
     >
       <Languages className="h-[18px] w-[18px]" strokeWidth={1.9} />
       <span className="text-[11px] font-semibold uppercase tracking-wide">

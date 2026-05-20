@@ -398,3 +398,104 @@ body {
     transform: none;
   }
 }
+
+/* Logo mark — orbital satellite */
+.logo-mark {
+  overflow: visible;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.logo-orbit-path {
+  fill: none;
+  stroke: var(--azure);
+  stroke-width: 0.85;
+  stroke-dasharray: 0.5 3.2;
+  stroke-linecap: round;
+  opacity: 0;
+  animation: logo-fade-in 0.7s ease 0.5s forwards;
+}
+
+.logo-ring {
+  fill: none;
+  stroke: var(--azure);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-dasharray: 29;
+  stroke-dashoffset: 29;
+  animation: logo-draw 0.95s cubic-bezier(0.65, 0, 0.35, 1) 0.05s forwards;
+  transition: stroke-width 0.3s ease;
+}
+
+.logo-core {
+  fill: var(--azure);
+  transform-box: view-box;
+  transform-origin: 12px 12px;
+  opacity: 0;
+  animation: logo-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
+}
+
+.logo-spin {
+  transform-box: view-box;
+  transform-origin: 12px 12px;
+  animation: logo-orbit 7s linear 0.7s infinite;
+}
+
+.logo-boost {
+  transform-box: view-box;
+  transform-origin: 12px 12px;
+  animation: logo-orbit 3s linear infinite;
+  animation-play-state: paused;
+}
+
+.logo-satellite {
+  fill: var(--pink);
+  transform-box: view-box;
+  transform-origin: 12px 4px;
+  opacity: 0;
+  filter: drop-shadow(0 0 2px var(--pink));
+  animation: logo-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s forwards;
+}
+
+.group:hover .logo-mark {
+  transform: scale(1.12);
+}
+
+.group:hover .logo-boost {
+  animation-play-state: running;
+}
+
+.group:hover .logo-ring {
+  stroke-width: 2.2;
+}
+
+@keyframes logo-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes logo-orbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logo-pop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes logo-fade-in {
+  to { opacity: 0.32; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-orbit-path,
+  .logo-ring,
+  .logo-core,
+  .logo-spin,
+  .logo-boost,
+  .logo-satellite {
+    animation: none;
+  }
+  .logo-orbit-path { opacity: 0.32; }
+  .logo-ring { stroke-dashoffset: 0; }
+  .logo-core,
+  .logo-satellite { opacity: 1; }
+}

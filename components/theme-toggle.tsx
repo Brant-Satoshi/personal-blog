@@ -42,7 +42,7 @@ export function ThemeToggle({ toLightLabel, toDarkLabel }: Props) {
       onClick={toggle}
       aria-label={isDark ? toLightLabel : toDarkLabel}
       aria-pressed={isDark}
-      className="rounded-full p-2.5 transition-colors hover:bg-ink/5 hover:text-ink"
+      className="cursor-pointer rounded-full p-2.5 transition-colors hover:bg-ink/5 hover:text-ink"
     >
       {isDark ? (
         <Sun className="h-[18px] w-[18px]" strokeWidth={1.9} />

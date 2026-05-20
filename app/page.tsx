@@ -40,8 +40,8 @@ export default async function Home() {
   return (
     <div className="page-surface min-h-screen">
       <SiteHeader />
-      <section className="mx-auto max-w-[1240px] px-6 pb-32 pt-28 sm:px-10 sm:pt-36">
-        <div className="grid grid-cols-1 gap-x-14 gap-y-16 lg:grid-cols-12">
+      <section className="mx-auto max-w-[1240px] px-6 pb-20 pt-28 sm:px-10 sm:pb-32 sm:pt-36">
+        <div className="grid grid-cols-1 gap-x-14 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
               {t.home.articles}
@@ -50,7 +50,7 @@ export default async function Home() {
             {posts.length === 0 ? (
               <p className="mt-10 text-ink/60">{t.home.empty}</p>
             ) : (
-              <div className="mt-12 flex flex-col gap-16">
+              <div className="mt-10 flex flex-col gap-12 sm:mt-12 sm:gap-16">
                 {posts.map((post) => (
                   <ArticleCard key={post.slug} post={post} readMore={t.actions.readMore} />
                 ))}

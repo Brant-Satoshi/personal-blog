@@ -2,11 +2,21 @@ import Link from "next/link";
 import { Rss, Search } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageToggle } from "@/components/language-toggle";
+import { LogoMark } from "@/components/logo-mark";
+import { MobileNav } from "@/components/mobile-nav";
 import { getDict, getLocale } from "@/lib/i18n";
 
 export async function SiteHeader() {
   const locale = await getLocale();
   const t = getDict(locale);
+
+  const navItems = [
+    { href: "/", label: t.nav.posts },
+    { href: "/categories", label: t.nav.categories },
+    { href: "/about", label: t.nav.about },
+    { href: "/", label: t.nav.notes },
+    { href: "/about", label: t.nav.now },
+  ];
 
   return (
     <header className="absolute inset-x-0 top-0 z-30">
@@ -16,25 +26,23 @@ export async function SiteHeader() {
           className="group flex items-baseline gap-1.5 text-[22px] font-semibold tracking-tight text-azure"
         >
           <span>Brant</span>
-          <span className="text-azure/40 transition-transform group-hover:rotate-12" aria-hidden>
-            ◇
-          </span>
+          <LogoMark className="h-7 w-7 self-center" />
           <span>Satoshi</span>
         </Link>
 
         <nav className="hidden items-center gap-9 text-[15px] font-medium text-ink/80 md:flex">
-          <Link href="/" className="link-underline hover:text-ink">{t.nav.posts}</Link>
-          <Link href="/categories" className="link-underline hover:text-ink">{t.nav.categories}</Link>
-          <Link href="/about" className="link-underline hover:text-ink">{t.nav.about}</Link>
-          <Link href="/" className="link-underline hover:text-ink">{t.nav.notes}</Link>
-          <Link href="/about" className="link-underline hover:text-ink">{t.nav.now}</Link>
+          {navItems.map((item) => (
+            <Link key={item.label} href={item.href} className="link-underline hover:text-ink">
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex items-center gap-1.5 text-ink/65">
           <button
             type="button"
             aria-label={t.actions.search}
-            className="rounded-full p-2.5 transition-colors hover:bg-ink/5 hover:text-ink"
+            className="hidden cursor-pointer rounded-full p-2.5 transition-colors hover:bg-ink/5 hover:text-ink md:block"
           >
             <Search className="h-[18px] w-[18px]" strokeWidth={1.9} />
           </button>
@@ -43,10 +51,11 @@ export async function SiteHeader() {
           <button
             type="button"
             aria-label={t.actions.rss}
-            className="rounded-full p-2.5 transition-colors hover:bg-ink/5 hover:text-ink"
+            className="hidden cursor-pointer rounded-full p-2.5 transition-colors hover:bg-ink/5 hover:text-ink md:block"
           >
             <Rss className="h-[18px] w-[18px]" strokeWidth={1.9} />
           </button>
+          <MobileNav items={navItems} menuLabel={t.actions.menu} />
         </div>
       </div>
     </header>
