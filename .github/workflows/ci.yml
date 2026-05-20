@@ -48,22 +48,10 @@ jobs:
         run: ${{ steps.pm.outputs.install }}
 
       - name: Lint
-        run: |
-          if npm run -s lint --if-present; then
-            echo "lint ok"
-          fi
+        run: npm run -s lint
 
       - name: Typecheck
-        run: |
-          if npm run -s typecheck --if-present; then
-            echo "typecheck ok"
-          fi
-
-      - name: Test
-        run: |
-          if npm run -s test --if-present; then
-            echo "tests ok"
-          fi
+        run: npm run -s typecheck
 
       - name: Build
         run: npm run -s build

@@ -27,6 +27,10 @@
 # claude code (personal, not shared)
 .claude/settings.local.json
 
+# editors
+.cursor/
+.vscode/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
