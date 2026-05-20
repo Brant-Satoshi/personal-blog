@@ -5,9 +5,10 @@ import type { TocItem } from "@/lib/posts";
 
 type Props = {
   items: TocItem[];
+  title: string;
 };
 
-export function TableOfContents({ items }: Props) {
+export function TableOfContents({ items, title }: Props) {
   const [activeId, setActiveId] = useState<string>(items[0]?.id ?? "");
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export function TableOfContents({ items }: Props) {
   return (
     <nav aria-label="Table of contents" className="sticky top-10">
       <h3 className="text-[13px] font-bold uppercase tracking-[0.18em] text-ink">
-        Table of Contents
+        {title}
       </h3>
       <ul className="mt-5 flex flex-col gap-0.5 border-l border-ink/12 text-[14.5px]">
         {items.map((item) => {

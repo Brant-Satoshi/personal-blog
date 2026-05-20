@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, JetBrains_Mono, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
+import { getDict, getLocale } from "@/lib/i18n";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,10 +24,14 @@ const notoSansSC = Noto_Sans_SC({
   weight: ["400", "500", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  title: "Personal Blog",
-  description: "Notes on software, systems, and product craft.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = getDict(locale);
+  return {
+    title: t.meta.siteTitle,
+    description: t.meta.siteDescription,
+  };
+}
 
 const noFlashScript = `
 (function() {
@@ -40,13 +45,15 @@ const noFlashScript = `
 })();
 `;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const t = getDict(locale);
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={t.htmlLang} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} ${notoSansSC.variable} antialiased`}
       >
