@@ -1,8 +1,8 @@
 ---
 title: Claude Code Prompt engineering
-date: 2026-02-04
+date: 2026-05-19
 summary: A quick sanity check to make sure the blog pipeline works end to end.
-category: Notes
+category: Tools
 ---
 
 原文是一篇关于 **Claude 最新模型提示词最佳实践** 的文档。

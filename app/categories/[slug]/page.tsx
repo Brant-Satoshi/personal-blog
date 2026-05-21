@@ -84,14 +84,9 @@ export default async function CategoryPage({ params }: PageProps) {
             <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-azure/10 text-azure">
               <Icon className="h-7 w-7" strokeWidth={1.9} />
             </span>
-            <div>
-              <h2 className="text-[13px] font-bold uppercase tracking-[0.18em] text-pink">
-                {t.categories.category}
-              </h2>
-              <h1 className="mt-1 text-[44px] font-bold leading-none tracking-tight text-ink sm:text-[60px]">
-                {getCategoryName(category, locale)}
-              </h1>
-            </div>
+            <h1 className="mt-1 text-[44px] font-bold leading-none tracking-tight text-ink sm:text-[60px]">
+              {getCategoryName(category, locale)}
+            </h1>
           </div>
           <p className="text-[15px] font-medium text-ink/55">
             {t.categories.articlesLabel(count)}

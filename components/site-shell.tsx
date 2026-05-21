@@ -16,8 +16,6 @@ export async function SiteHeader() {
     { href: "/", label: t.nav.posts },
     { href: "/categories", label: t.nav.categories },
     { href: "/about", label: t.nav.about },
-    { href: "/", label: t.nav.notes },
-    { href: "/about", label: t.nav.now },
   ];
 
   return (

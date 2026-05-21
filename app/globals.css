@@ -418,6 +418,68 @@ html.dark {
   }
 }
 
+/* Theme toggle — dotted sun <-> crescent moon morph.
+   The whole icon rotates between states; the ring grows and a sliding
+   shadow circle carves it into a crescent; the 8 sun dots scale away. */
+.theme-icon {
+  transform: rotate(90deg);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .theme-icon {
+  transform: rotate(40deg);
+}
+
+.theme-ring {
+  r: 6px;
+  transition: r 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .theme-ring {
+  r: 9.5px;
+}
+
+/* shared by the cutout-mask circle and the crescent arc — they track together */
+.theme-shadow {
+  cy: -4px;
+  transition: cy 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .theme-shadow {
+  cy: 4px;
+}
+
+.theme-window {
+  r: 7px;
+  transition: r 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark .theme-window {
+  r: 10.5px;
+}
+
+.theme-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: var(--dot-delay, 0ms);
+}
+
+.dark .theme-dot {
+  transform: scale(0);
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-icon,
+  .theme-ring,
+  .theme-shadow,
+  .theme-window,
+  .theme-dot {
+    transition: none;
+  }
+}
+
 /* Logo mark — orbital satellite */
 .logo-mark {
   overflow: visible;

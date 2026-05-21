@@ -22,7 +22,7 @@ type Dict = {
     notFound: string;
     categoryNotFound: string;
   };
-  nav: { posts: string; categories: string; about: string; notes: string; now: string };
+  nav: { posts: string; categories: string; about: string };
   actions: {
     search: string;
     close: string;
@@ -61,7 +61,7 @@ type Dict = {
 const en: Dict = {
   htmlLang: "en",
   meta: {
-    siteTitle: "Personal Blog",
+    siteTitle: "Brant Satoshi",
     siteDescription: "Notes on software, systems, and product craft.",
     categoriesTitle: "Categories",
     categoriesDescription: "Browse posts by topic.",
@@ -72,8 +72,6 @@ const en: Dict = {
     posts: "Posts",
     categories: "Categories",
     about: "About",
-    notes: "Notes",
-    now: "Now",
   },
   actions: {
     search: "Search",
@@ -120,8 +118,9 @@ const en: Dict = {
     eyebrow: "About",
     title: "Hi, I am Brant.",
     body1:
-      "This is a minimal, fast blog built with Next.js. I use it to share ideas about software, systems, and product craft.",
-    body2: "If you want to reach me, add contact details here.",
+      "I'm an engineer who likes building small, sharp things and writing about how they come together. This blog is a quiet corner for that: notes on software and systems, the occasional deep dive into AI-assisted engineering, and the slower craft of getting the details right. It's built with Next.js and React, kept deliberately minimal and fast — every post is just a Markdown file, and the whole site is only a handful of pages — and it is all still a continuous work in progress.",
+    body2:
+      "I write here mostly to think out loud — to turn half-formed ideas into something I can revisit later. If a post was useful, made you want to push back, or you just want to compare notes, I'd genuinely like to hear it. You can reach me by email at brantliang.ai@gmail.com.",
   },
   footer: {
     tag: "All Rights Reserved.",
@@ -134,7 +133,7 @@ const en: Dict = {
 const zh: Dict = {
   htmlLang: "zh-CN",
   meta: {
-    siteTitle: "个人博客",
+    siteTitle: "Brant Satoshi",
     siteDescription: "关于软件、系统与产品手艺的笔记。",
     categoriesTitle: "分类",
     categoriesDescription: "按主题浏览文章。",
@@ -145,8 +144,6 @@ const zh: Dict = {
     posts: "文章",
     categories: "分类",
     about: "关于",
-    notes: "笔记",
-    now: "近况",
   },
   actions: {
     search: "搜索",
@@ -167,8 +164,8 @@ const zh: Dict = {
   },
   home: {
     articles: "文章与教程",
-    browseBy: "按分类浏览",
-    popular: "热门内容",
+    browseBy: "分类",
+    popular: "热门",
     empty: "暂无文章。请在 content/posts 目录新建一个 markdown 文件。",
   },
   categories: {
@@ -192,8 +189,9 @@ const zh: Dict = {
     eyebrow: "关于",
     title: "你好，我是 Brant。",
     body1:
-      "这是一个用 Next.js 构建的极简、快速的博客，用来分享关于软件、系统和产品的思考。",
-    body2: "想要联系我？请在这里添加联系方式。",
+      "我是一名工程师，喜欢做小而锋利的东西，也喜欢把它们如何拼装起来写下来。这个博客就是这样一个安静的角落：关于软件与系统的笔记，偶尔深入聊聊 AI 辅助的工程实践，以及把细节做对所需要的那种慢功夫。它用 Next.js 与 React 构建，刻意保持极简和快速——每篇文章只是一个 Markdown 文件，整个站点也不过几个页面——而这个博客本身，也正在不停完善中。",
+    body2:
+      "我在这里写作，多半是为了把想法说出来、想清楚——把那些只成形了一半的念头，变成日后还能回看的东西。如果某篇文章对你有用、让你想反驳，或者你只是想交流一下心得，我都很乐意听到。欢迎邮件联系我：brantliang.ai@gmail.com。",
   },
   footer: {
     tag: "保留所有权利",

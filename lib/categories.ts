@@ -1,4 +1,4 @@
-import { Code2, Hammer, Network, NotebookPen, PenLine, Wrench, type LucideIcon } from "lucide-react";
+import { Bot, Hammer, Network, NotebookPen, PenLine, Wrench, type LucideIcon } from "lucide-react";
 import { getAllPosts, type PostMeta } from "@/lib/posts";
 
 import type { Locale } from "@/lib/i18n";
@@ -14,12 +14,12 @@ export type Category = {
 
 export const CATEGORIES: Category[] = [
   {
-    slug: "code",
-    name: "Code",
-    nameZh: "代码",
-    description: "Patterns, refactors, and small wins from day-to-day engineering.",
-    descriptionZh: "日常工程中的模式、重构与小胜利。",
-    icon: Code2,
+    slug: "ai",
+    name: "AI",
+    nameZh: "人工智能",
+    description: "Working with LLMs, agents, and AI-assisted engineering.",
+    descriptionZh: "与大模型、智能体协作，以及 AI 辅助的工程实践。",
+    icon: Bot,
   },
   {
     slug: "systems",
@@ -54,11 +54,11 @@ export const CATEGORIES: Category[] = [
     icon: Wrench,
   },
   {
-    slug: "essays",
-    name: "Essays",
-    nameZh: "随笔",
-    description: "Longer-form pieces on how we ship and why.",
-    descriptionZh: "关于如何发布以及为何如此发布的长文。",
+    slug: "code",
+    name: "Code",
+    nameZh: "代码",
+    description: "Patterns, refactors, and small wins from day-to-day engineering.",
+    descriptionZh: "日常工程中的模式、重构与小胜利。",
     icon: PenLine,
   },
 ];

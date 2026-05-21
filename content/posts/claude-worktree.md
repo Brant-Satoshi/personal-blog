@@ -1,6 +1,6 @@
 ---
 title: Claude Code Worktree
-date: 2026-02-04
+date: 2026-04-14
 summary: A quick sanity check to make sure the blog pipeline works end to end.
 category: Notes
 ---
