@@ -249,12 +249,31 @@ body {
   min-height: 100vh;
 }
 
+/* The overscroll / rubber-band gap is painted with the root background-color
+   (a gradient image never extends into it). Match it to the page's top color
+   so the bounce blends with the header instead of flashing the body color. */
+html {
+  background-color: #a8d3ee;
+}
+
+html.dark {
+  background-color: #102338;
+}
+
 .dark {
   --paper: #07101c;
   --ink: #e6ecf5;
   --sky-band: #102338;
   --pink: #ec4899;
   --azure: #7cb7ff;
+}
+
+/* Crossfade the whole page (gradient backgrounds included) when toggling
+   light/dark — a gradient background-image can't be transitioned directly. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .dark .page-surface {

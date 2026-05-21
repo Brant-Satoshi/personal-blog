@@ -88,9 +88,9 @@ export default async function Home() {
                   <li key={post.slug} className="border-b border-ink/10 last:border-0">
                     <Link
                       href={`/${post.slug}`}
-                      className="group flex items-start gap-4 py-5 text-[17.5px] font-semibold text-ink transition-colors hover:text-azure"
+                      className="group flex items-center gap-4 py-5 text-[17.5px] font-semibold text-ink transition-colors hover:text-azure"
                     >
-                      <span className="arrow-slide mt-[3px] text-ink" aria-hidden>
+                      <span className="arrow-slide text-ink" aria-hidden>
                         →
                       </span>
                       <span className="leading-snug">{post.title}</span>

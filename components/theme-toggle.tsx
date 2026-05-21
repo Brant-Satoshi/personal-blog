@@ -30,10 +30,25 @@ export function ThemeToggle({ toLightLabel, toDarkLabel }: Props) {
 
   const toggle = () => {
     const next = !isDark;
-    document.documentElement.classList.toggle("dark", next);
-    try {
-      localStorage.setItem("theme", next ? "dark" : "light");
-    } catch {}
+    const applyTheme = () => {
+      document.documentElement.classList.toggle("dark", next);
+      try {
+        localStorage.setItem("theme", next ? "dark" : "light");
+      } catch {}
+    };
+
+    const doc = document as Document & {
+      startViewTransition?: (callback: () => void) => unknown;
+    };
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (doc.startViewTransition && !reduceMotion) {
+      doc.startViewTransition(applyTheme);
+    } else {
+      applyTheme();
+    }
   };
 
   return (

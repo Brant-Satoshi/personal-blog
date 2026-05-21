@@ -26,6 +26,7 @@
 
 # claude code (personal, not shared)
 .claude/settings.local.json
+.playwright-mcp/
 
 # editors
 .cursor/

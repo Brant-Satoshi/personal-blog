@@ -25,6 +25,7 @@ type Dict = {
   nav: { posts: string; categories: string; about: string; notes: string; now: string };
   actions: {
     search: string;
+    close: string;
     rss: string;
     menu: string;
     readMore: string;
@@ -34,6 +35,7 @@ type Dict = {
     toLight: string;
     toDark: string;
   };
+  search: { placeholder: string; hint: string; noResults: string };
   home: { articles: string; browseBy: string; popular: string; empty: string };
   categories: {
     eyebrow: string;
@@ -75,6 +77,7 @@ const en: Dict = {
   },
   actions: {
     search: "Search",
+    close: "Close",
     rss: "RSS feed",
     menu: "Menu",
     readMore: "Read more",
@@ -83,6 +86,11 @@ const en: Dict = {
     switchLanguage: "切换到中文",
     toLight: "Switch to light mode",
     toDark: "Switch to dark mode",
+  },
+  search: {
+    placeholder: "Search posts",
+    hint: "Search posts by title, summary, or category.",
+    noResults: "No posts match your search.",
   },
   home: {
     articles: "Articles and tutorials",
@@ -116,7 +124,7 @@ const en: Dict = {
     body2: "If you want to reach me, add contact details here.",
   },
   footer: {
-    tag: "Built quietly with Next.js.",
+    tag: "All Rights Reserved.",
     about: "About",
     rss: "RSS",
     twitter: "Twitter",
@@ -142,6 +150,7 @@ const zh: Dict = {
   },
   actions: {
     search: "搜索",
+    close: "关闭",
     rss: "RSS 订阅",
     menu: "菜单",
     readMore: "阅读全文",
@@ -150,6 +159,11 @@ const zh: Dict = {
     switchLanguage: "Switch to English",
     toLight: "切换到浅色模式",
     toDark: "切换到深色模式",
+  },
+  search: {
+    placeholder: "搜索文章",
+    hint: "按标题、摘要或分类搜索文章。",
+    noResults: "没有匹配的文章。",
   },
   home: {
     articles: "文章与教程",
@@ -182,7 +196,7 @@ const zh: Dict = {
     body2: "想要联系我？请在这里添加联系方式。",
   },
   footer: {
-    tag: "用 Next.js 安静地构建。",
+    tag: "保留所有权利",
     about: "关于",
     rss: "RSS",
     twitter: "Twitter",

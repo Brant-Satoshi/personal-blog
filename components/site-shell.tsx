@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { Rss, Search } from "lucide-react";
+import { Rss } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageToggle } from "@/components/language-toggle";
 import { LogoMark } from "@/components/logo-mark";
 import { MobileNav } from "@/components/mobile-nav";
+import { SearchDialog } from "@/components/search-dialog";
+import { getAllPosts } from "@/lib/posts";
 import { getDict, getLocale } from "@/lib/i18n";
 
 export async function SiteHeader() {
@@ -39,13 +41,14 @@ export async function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-1.5 text-ink/65">
-          <button
-            type="button"
-            aria-label={t.actions.search}
-            className="hidden cursor-pointer rounded-full p-2.5 transition-colors hover:bg-ink/5 hover:text-ink md:block"
-          >
-            <Search className="h-[18px] w-[18px]" strokeWidth={1.9} />
-          </button>
+          <SearchDialog
+            posts={getAllPosts()}
+            searchLabel={t.actions.search}
+            closeLabel={t.actions.close}
+            placeholder={t.search.placeholder}
+            hint={t.search.hint}
+            noResults={t.search.noResults}
+          />
           <LanguageToggle locale={locale} label={t.actions.switchLanguage} />
           <ThemeToggle toLightLabel={t.actions.toLight} toDarkLabel={t.actions.toDark} />
           <button
