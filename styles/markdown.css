@@ -1,0 +1,186 @@
+.markdown {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  line-height: 1.75;
+  font-size: 16px;
+  color: rgba(12, 19, 34, 0.78);
+}
+
+.markdown h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.012em;
+  margin-top: 1.5rem;
+  margin-bottom: -0.25rem;
+  scroll-margin-top: 7rem;
+}
+
+.markdown h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 1rem;
+  margin-bottom: -0.25rem;
+  scroll-margin-top: 7rem;
+}
+
+.markdown a {
+  color: var(--azure);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: rgba(37, 99, 235, 0.45);
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+
+.markdown a:hover {
+  color: #1d3eb8;
+  text-decoration-color: #1d3eb8;
+}
+
+.markdown strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.markdown em {
+  font-style: italic;
+}
+
+.markdown ul,
+.markdown ol {
+  padding-left: 1.5rem;
+}
+
+.markdown ul { list-style: disc; }
+.markdown ol { list-style: decimal; }
+.markdown li { padding-left: 0.25rem; }
+.markdown li::marker { color: rgba(37, 99, 235, 0.55); }
+
+.markdown code {
+  font-family: var(--font-jetbrains-mono), monospace;
+  background: rgba(37, 99, 235, 0.08);
+  padding: 0.18em 0.42em;
+  border-radius: 5px;
+  font-size: 0.9em;
+  color: #1e40af;
+}
+
+.markdown pre {
+  background: #f4f7fb;
+  border: 1px solid rgba(12, 19, 34, 0.08);
+  padding: 1.1rem 1.3rem;
+  border-radius: 10px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.markdown pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  color: rgba(12, 19, 34, 0.88);
+}
+
+.markdown .table-wrap {
+  overflow-x: auto;
+}
+
+.markdown table {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.markdown th {
+  text-align: left;
+  vertical-align: top;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 0 1rem 0.7rem;
+  border-bottom: 2px solid rgba(12, 19, 34, 0.8);
+}
+
+.markdown td {
+  vertical-align: top;
+  padding: 0.95rem 1rem;
+  border-bottom: 1px solid rgba(12, 19, 34, 0.1);
+  overflow-wrap: break-word;
+}
+
+.markdown th:first-child,
+.markdown td:first-child {
+  padding-left: 0;
+}
+
+.markdown th:last-child,
+.markdown td:last-child {
+  padding-right: 0;
+}
+
+.markdown blockquote {
+  border-left: 3px solid var(--azure);
+  padding: 0.25rem 0 0.25rem 1rem;
+  color: rgba(12, 19, 34, 0.65);
+}
+
+.markdown hr {
+  border: 0;
+  border-top: 1px solid rgba(12, 19, 34, 0.08);
+  margin: 2rem 0;
+}
+
+.dark .markdown {
+  color: rgba(230, 236, 245, 0.82);
+}
+
+.dark .markdown a {
+  text-decoration-color: rgba(124, 183, 255, 0.45);
+}
+
+.dark .markdown a:hover {
+  color: #fff;
+  text-decoration-color: #fff;
+}
+
+.dark .markdown code {
+  background: rgba(124, 183, 255, 0.1);
+  color: #cbe2ff;
+}
+
+.dark .markdown pre {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .markdown pre code {
+  color: rgba(230, 236, 245, 0.92);
+}
+
+.dark .markdown blockquote {
+  color: rgba(230, 236, 245, 0.7);
+}
+
+.dark .markdown hr {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .markdown th {
+  border-bottom-color: rgba(230, 236, 245, 0.8);
+}
+
+.dark .markdown td {
+  border-bottom-color: rgba(230, 236, 245, 0.12);
+}
+
+.dark .markdown li::marker {
+  color: rgba(124, 183, 255, 0.55);
+}

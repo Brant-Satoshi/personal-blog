@@ -1,0 +1,255 @@
+.markdown .code-block {
+  border: 1px solid rgba(12, 19, 34, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.markdown .code-block pre {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.markdown .code-block-label {
+  position: relative;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.3rem;
+  color: #475569;
+  background: rgba(12, 19, 34, 0.05);
+  border-bottom: 1px solid rgba(12, 19, 34, 0.08);
+  border-left: 3px solid #94a3b8;
+}
+
+.markdown .code-block[data-lang="python"] .code-block-label {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+  border-left-color: #2563eb;
+}
+
+.markdown .code-block[data-lang="javascript"] .code-block-label {
+  color: #b45309;
+  background: rgba(245, 158, 11, 0.12);
+  border-left-color: #f59e0b;
+}
+
+.markdown .code-copy {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 1.1rem;
+  border: 0;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  opacity: 0.65;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+.markdown .code-copy:hover {
+  opacity: 1;
+  color: var(--azure);
+}
+
+.markdown .code-copy-done {
+  display: none;
+}
+
+.markdown .code-copy[data-copied] {
+  opacity: 1;
+  color: #16a34a;
+}
+
+.markdown .code-copy[data-copied] .code-copy-idle {
+  display: none;
+}
+
+.markdown .code-copy[data-copied] .code-copy-done {
+  display: inline;
+}
+
+.markdown .code-group {
+  border: 1px solid rgba(12, 19, 34, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.markdown .code-group-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(12, 19, 34, 0.05);
+  border-bottom: 1px solid rgba(12, 19, 34, 0.08);
+}
+
+.markdown .code-lang-select {
+  position: relative;
+}
+
+.markdown .code-lang-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.3rem 0.5rem;
+  padding: 0.28rem 0.55rem;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.markdown .code-lang-trigger:hover {
+  background: rgba(12, 19, 34, 0.08);
+}
+
+.markdown .code-lang-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0.5rem;
+  z-index: 5;
+  min-width: 9.5rem;
+  margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+  background: var(--paper);
+  border: 1px solid rgba(12, 19, 34, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(12, 19, 34, 0.16);
+}
+
+.markdown .code-lang-menu[hidden] {
+  display: none;
+}
+
+.markdown .code-lang-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: 5px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12.5px;
+  color: #334155;
+  cursor: pointer;
+}
+
+.markdown .code-lang-option:hover {
+  background: rgba(12, 19, 34, 0.06);
+}
+
+.markdown .code-lang-option[aria-selected="true"] {
+  font-weight: 700;
+}
+
+.markdown .code-lang-check {
+  visibility: hidden;
+  flex-shrink: 0;
+}
+
+.markdown .code-lang-option[aria-selected="true"] .code-lang-check {
+  visibility: visible;
+}
+
+.markdown .code-group-panel[hidden] {
+  display: none;
+}
+
+.markdown .code-group-panel pre {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.markdown .mermaid-diagram {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+
+.markdown .mermaid-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.dark .markdown .code-block {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .markdown .code-block-label {
+  color: rgba(230, 236, 245, 0.55);
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  border-left-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark .markdown .code-block[data-lang="python"] .code-block-label {
+  color: #93c5fd;
+  background: rgba(124, 183, 255, 0.12);
+  border-left-color: #60a5fa;
+}
+
+.dark .markdown .code-block[data-lang="javascript"] .code-block-label {
+  color: #fcd34d;
+  background: rgba(245, 158, 11, 0.14);
+  border-left-color: #f59e0b;
+}
+
+.dark .markdown .shiki,
+.dark .markdown .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+.dark .markdown .code-copy {
+  color: rgba(230, 236, 245, 0.55);
+}
+
+.dark .markdown .code-copy:hover {
+  color: #93c5fd;
+}
+
+.dark .markdown .code-copy[data-copied] {
+  color: #4ade80;
+}
+
+.dark .markdown .code-group {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .markdown .code-group-head {
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .markdown .code-lang-trigger {
+  color: rgba(230, 236, 245, 0.82);
+}
+
+.dark .markdown .code-lang-trigger:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dark .markdown .code-lang-menu {
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+}
+
+.dark .markdown .code-lang-option {
+  color: rgba(230, 236, 245, 0.82);
+}
+
+.dark .markdown .code-lang-option:hover {
+  background: rgba(255, 255, 255, 0.07);
+}

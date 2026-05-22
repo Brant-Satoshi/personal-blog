@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "../styles/markdown.css";
+@import "../styles/code-blocks.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -52,107 +54,6 @@
 
 body {
   font-family: var(--font-geist-sans), var(--font-noto-sans-sc), Arial, Helvetica, sans-serif;
-}
-
-.markdown {
-  display: flex;
-  flex-direction: column;
-  gap: 1.15rem;
-  line-height: 1.75;
-  font-size: 17px;
-  color: rgba(12, 19, 34, 0.78);
-}
-
-.markdown h2 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -0.012em;
-  margin-top: 1.5rem;
-  margin-bottom: -0.25rem;
-  scroll-margin-top: 5rem;
-}
-
-.markdown h3 {
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--ink);
-  margin-top: 1rem;
-  margin-bottom: -0.25rem;
-  scroll-margin-top: 5rem;
-}
-
-.markdown a {
-  color: var(--azure);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1.5px;
-  text-decoration-color: rgba(37, 99, 235, 0.45);
-  transition: color 0.2s, text-decoration-color 0.2s;
-}
-
-.markdown a:hover {
-  color: #1d3eb8;
-  text-decoration-color: #1d3eb8;
-}
-
-.markdown strong {
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.markdown em {
-  font-style: italic;
-}
-
-.markdown ul,
-.markdown ol {
-  padding-left: 1.5rem;
-}
-
-.markdown ul { list-style: disc; }
-.markdown ol { list-style: decimal; }
-.markdown li { padding-left: 0.25rem; }
-.markdown li::marker { color: rgba(37, 99, 235, 0.55); }
-
-.markdown code {
-  font-family: var(--font-jetbrains-mono), monospace;
-  background: rgba(37, 99, 235, 0.08);
-  padding: 0.18em 0.42em;
-  border-radius: 5px;
-  font-size: 0.9em;
-  color: #1e40af;
-}
-
-.markdown pre {
-  background: #f4f7fb;
-  border: 1px solid rgba(12, 19, 34, 0.08);
-  padding: 1.1rem 1.3rem;
-  border-radius: 10px;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  font-size: 14.5px;
-  line-height: 1.65;
-}
-
-.markdown pre code {
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
-  font-size: inherit;
-  color: rgba(12, 19, 34, 0.88);
-}
-
-.markdown blockquote {
-  border-left: 3px solid var(--azure);
-  padding: 0.25rem 0 0.25rem 1rem;
-  color: rgba(12, 19, 34, 0.65);
-}
-
-.markdown hr {
-  border: 0;
-  border-top: 1px solid rgba(12, 19, 34, 0.08);
-  margin: 2rem 0;
 }
 
 :root {
@@ -279,37 +180,6 @@ html.dark {
 .dark .page-surface {
   background:
     linear-gradient(to bottom, #102338 0%, #0a1626 35%, #07101c 100%);
-}
-
-.dark .markdown {
-  color: rgba(230, 236, 245, 0.82);
-}
-.dark .markdown a {
-  text-decoration-color: rgba(124, 183, 255, 0.45);
-}
-.dark .markdown a:hover {
-  color: #fff;
-  text-decoration-color: #fff;
-}
-.dark .markdown code {
-  background: rgba(124, 183, 255, 0.1);
-  color: #cbe2ff;
-}
-.dark .markdown pre {
-  background: rgba(0, 0, 0, 0.35);
-  border-color: rgba(255, 255, 255, 0.08);
-}
-.dark .markdown pre code {
-  color: rgba(230, 236, 245, 0.92);
-}
-.dark .markdown blockquote {
-  color: rgba(230, 236, 245, 0.7);
-}
-.dark .markdown hr {
-  border-top-color: rgba(255, 255, 255, 0.08);
-}
-.dark .markdown li::marker {
-  color: rgba(124, 183, 255, 0.55);
 }
 
 .dark .chip {
@@ -478,105 +348,4 @@ html.dark {
   .theme-dot {
     transition: none;
   }
-}
-
-/* Logo mark — orbital satellite */
-.logo-mark {
-  overflow: visible;
-  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.logo-orbit-path {
-  fill: none;
-  stroke: var(--azure);
-  stroke-width: 0.85;
-  stroke-dasharray: 0.5 3.2;
-  stroke-linecap: round;
-  opacity: 0;
-  animation: logo-fade-in 0.7s ease 0.5s forwards;
-}
-
-.logo-ring {
-  fill: none;
-  stroke: var(--azure);
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-dasharray: 29;
-  stroke-dashoffset: 29;
-  animation: logo-draw 0.95s cubic-bezier(0.65, 0, 0.35, 1) 0.05s forwards;
-  transition: stroke-width 0.3s ease;
-}
-
-.logo-core {
-  fill: var(--azure);
-  transform-box: view-box;
-  transform-origin: 12px 12px;
-  opacity: 0;
-  animation: logo-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
-}
-
-.logo-spin {
-  transform-box: view-box;
-  transform-origin: 12px 12px;
-  animation: logo-orbit 7s linear 0.7s infinite;
-}
-
-.logo-boost {
-  transform-box: view-box;
-  transform-origin: 12px 12px;
-  animation: logo-orbit 3s linear infinite;
-  animation-play-state: paused;
-}
-
-.logo-satellite {
-  fill: var(--pink);
-  transform-box: view-box;
-  transform-origin: 12px 4px;
-  opacity: 0;
-  filter: drop-shadow(0 0 2px var(--pink));
-  animation: logo-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s forwards;
-}
-
-.group:hover .logo-mark {
-  transform: scale(1.12);
-}
-
-.group:hover .logo-boost {
-  animation-play-state: running;
-}
-
-.group:hover .logo-ring {
-  stroke-width: 2.2;
-}
-
-@keyframes logo-draw {
-  to { stroke-dashoffset: 0; }
-}
-
-@keyframes logo-orbit {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes logo-pop {
-  from { opacity: 0; transform: scale(0); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes logo-fade-in {
-  to { opacity: 0.32; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .logo-orbit-path,
-  .logo-ring,
-  .logo-core,
-  .logo-spin,
-  .logo-boost,
-  .logo-satellite {
-    animation: none;
-  }
-  .logo-orbit-path { opacity: 0.32; }
-  .logo-ring { stroke-dashoffset: 0; }
-  .logo-core,
-  .logo-satellite { opacity: 1; }
 }
