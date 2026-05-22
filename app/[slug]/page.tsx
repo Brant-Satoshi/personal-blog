@@ -1,9 +1,15 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/site-shell";
+import { MermaidRenderer } from "@/components/mermaid-renderer";
+import { CodeCopyButtons } from "@/components/code-copy";
+import { CodeGroups } from "@/components/code-groups";
 import { getAllPosts, getPostBySlug, type TocItem } from "@/lib/posts";
 import { TableOfContents } from "./table-of-contents";
+import { TocMenu } from "@/components/toc-menu";
 import { getDict, getLocale, type Locale } from "@/lib/i18n";
+
+const MOBILE_TOC_MIN_HEADINGS = 5;
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -15,7 +21,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   const t = getDict(await getLocale());
 
   if (!post) {
@@ -50,7 +56,7 @@ function formatLongDate(dateStr: string, locale: Locale): string {
 
 export default async function PostPage({ params }: PageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();
@@ -65,12 +71,13 @@ export default async function PostPage({ params }: PageProps) {
     post.toc.length > 0
       ? [{ id: "introduction", text: t.post.introduction, depth: 2 }, ...post.toc]
       : [];
+  const showMobileToc = post.toc.length >= MOBILE_TOC_MIN_HEADINGS;
 
   return (
     <div className="page-surface min-h-screen">
       <SiteHeader />
 
-      <section className="mx-auto max-w-[1240px] px-6 pt-32 pb-10 sm:px-10 sm:pt-40 sm:pb-14">
+      <section className="mx-auto max-w-[1240px] px-6 pt-28 pb-10 sm:px-10 sm:pt-36 sm:pb-14">
         <div className="reveal max-w-3xl" style={{ animationDelay: "120ms" }}>
           <h1 className="text-[42px] font-bold leading-[1.05] tracking-tight text-ink sm:text-[58px]">
             {post.title}
@@ -102,13 +109,16 @@ export default async function PostPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1240px] px-6 pb-32 pt-8 sm:px-10 sm:pt-12">
+      <section className="mx-auto max-w-[1240px] px-6 pb-32 sm:px-10">
         <div className="grid grid-cols-1 gap-x-14 gap-y-12 lg:grid-cols-12">
-          <article id="introduction" className="reveal lg:col-span-8">
+          <article id="introduction" className="reveal scroll-mt-28 lg:col-span-8">
             <div
               className="markdown"
               dangerouslySetInnerHTML={{ __html: post.html }}
             />
+            <MermaidRenderer key={`mermaid-${slug}`} />
+            <CodeCopyButtons />
+            <CodeGroups key={`groups-${slug}`} />
           </article>
 
           <aside className="hidden lg:col-span-3 lg:col-start-10 lg:block">
@@ -116,6 +126,10 @@ export default async function PostPage({ params }: PageProps) {
           </aside>
         </div>
       </section>
+
+      {showMobileToc ? (
+        <TocMenu items={tocItems} label={t.post.toc} />
+      ) : null}
 
       <SiteFooter />
     </div>
