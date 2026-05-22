@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { Search, X } from "lucide-react";
 import type { PostMeta } from "@/lib/posts";
@@ -94,9 +95,9 @@ export function SearchDialog({
         <Search className="h-[18px] w-[18px]" strokeWidth={1.9} />
       </button>
 
-      {open ? (
+      {open ? createPortal(
         <div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 px-4 pt-[12vh] backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[12vh] backdrop-blur-sm"
           onClick={close}
         >
           <div
@@ -105,7 +106,7 @@ export function SearchDialog({
             aria-modal="true"
             aria-label={searchLabel}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-xl overflow-hidden rounded-2xl border border-ink/10 bg-paper shadow-2xl"
+            className="w-full max-w-xl overflow-hidden rounded-2xl border border-ink/10 bg-paper"
           >
             <div className="flex items-center gap-3 border-b border-ink/10 px-4">
               <Search
@@ -168,7 +169,8 @@ export function SearchDialog({
               )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       ) : null}
     </>
   );
