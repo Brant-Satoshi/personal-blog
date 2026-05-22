@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { Rss } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageToggle } from "@/components/language-toggle";
-import { LogoMark } from "@/components/logo-mark";
 import { MobileNav } from "@/components/mobile-nav";
+import { HeaderShell } from "@/components/header-shell";
 import { SearchDialog } from "@/components/search-dialog";
 import { getAllPosts } from "@/lib/posts";
 import { getDict, getLocale } from "@/lib/i18n";
@@ -19,14 +18,13 @@ export async function SiteHeader() {
   ];
 
   return (
-    <header className="absolute inset-x-0 top-0 z-30">
-      <div className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-6 sm:px-10 sm:py-7">
+    <HeaderShell>
+      <div className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-3.5 sm:px-10 sm:py-4">
         <Link
           href="/"
           className="group flex items-baseline gap-1.5 text-[22px] font-semibold tracking-tight text-azure"
         >
           <span>Brant</span>
-          <LogoMark className="h-7 w-7 self-center" />
           <span>Satoshi</span>
         </Link>
 
@@ -49,17 +47,10 @@ export async function SiteHeader() {
           />
           <LanguageToggle locale={locale} label={t.actions.switchLanguage} />
           <ThemeToggle toLightLabel={t.actions.toLight} toDarkLabel={t.actions.toDark} />
-          <button
-            type="button"
-            aria-label={t.actions.rss}
-            className="hidden cursor-pointer rounded-full p-2.5 transition-colors hover:bg-ink/5 hover:text-ink md:block"
-          >
-            <Rss className="h-[18px] w-[18px]" strokeWidth={1.9} />
-          </button>
           <MobileNav items={navItems} menuLabel={t.actions.menu} />
         </div>
       </div>
-    </header>
+    </HeaderShell>
   );
 }
 

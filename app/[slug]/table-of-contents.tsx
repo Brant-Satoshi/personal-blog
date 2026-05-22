@@ -37,7 +37,7 @@ export function TableOfContents({ items, title }: Props) {
   if (items.length === 0) return null;
 
   return (
-    <nav aria-label="Table of contents" className="sticky top-10">
+    <nav aria-label="Table of contents" className="sticky top-28">
       <h3 className="text-[13px] font-bold uppercase tracking-[0.18em] text-ink">
         {title}
       </h3>

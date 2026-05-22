@@ -70,7 +70,7 @@ export default async function CategoryPage({ params }: PageProps) {
     <div className="page-surface min-h-screen">
       <SiteHeader />
 
-      <section className="mx-auto max-w-[1240px] px-6 pt-28 pb-10 sm:px-10 sm:pt-36">
+      <section className="mx-auto max-w-[1240px] px-6 pt-24 pb-10 sm:px-10 sm:pt-32">
         <Link
           href="/categories"
           className="link-arrow inline-flex items-center gap-1.5 text-[13.5px] font-semibold uppercase tracking-[0.14em] text-ink/55 hover:text-ink"

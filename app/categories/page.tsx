@@ -26,7 +26,7 @@ export default async function CategoriesPage() {
     <div className="page-surface min-h-screen">
       <SiteHeader />
 
-      <section className="mx-auto max-w-[1240px] px-6 pt-28 pb-16 sm:px-10 sm:pt-36">
+      <section className="mx-auto max-w-[1240px] px-6 pt-24 pb-16 sm:px-10 sm:pt-32">
         <div className="reveal max-w-2xl">
           <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
             {t.categories.eyebrow}

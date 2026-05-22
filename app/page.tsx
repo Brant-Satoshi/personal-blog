@@ -40,7 +40,7 @@ export default async function Home() {
   return (
     <div className="page-surface min-h-screen">
       <SiteHeader />
-      <section className="mx-auto max-w-[1240px] px-6 pb-20 pt-28 sm:px-10 sm:pb-32 sm:pt-36">
+      <section className="mx-auto max-w-[1240px] px-6 pb-20 pt-24 sm:px-10 sm:pb-32 sm:pt-32">
         <div className="grid grid-cols-1 gap-x-14 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
