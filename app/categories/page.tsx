@@ -26,7 +26,7 @@ export default async function CategoriesPage() {
     <div className="page-surface min-h-screen">
       <SiteHeader />
 
-      <section className="mx-auto max-w-[1240px] px-6 pt-24 pb-16 sm:px-10 sm:pt-32">
+      <section className="mx-auto max-w-310 px-6 pt-24 pb-16 sm:px-10 sm:pt-32">
         <div className="reveal max-w-2xl">
           <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
             {t.categories.eyebrow}
@@ -40,7 +40,7 @@ export default async function CategoriesPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1240px] px-6 pb-32 sm:px-10">
+      <section className="mx-auto max-w-310 px-6 pb-32 sm:px-10">
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {CATEGORIES.map((cat, idx) => {
             const Icon = cat.icon;

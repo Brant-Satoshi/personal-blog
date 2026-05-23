@@ -19,7 +19,7 @@ export async function SiteHeader() {
 
   return (
     <HeaderShell>
-      <div className="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-3.5 sm:px-10 sm:py-4">
+      <div className="mx-auto flex max-w-310 items-center justify-between px-6 py-3.5 sm:px-10 sm:py-4">
         <Link
           href="/"
           className="group flex items-baseline gap-1.5 text-[22px] font-semibold tracking-tight text-azure"
@@ -60,7 +60,7 @@ export async function SiteFooter() {
 
   return (
     <footer className="border-t border-ink/10">
-      <div className="mx-auto flex max-w-[1240px] flex-col items-start justify-between gap-4 px-6 py-10 text-[13px] text-ink/55 sm:flex-row sm:items-center sm:px-10">
+      <div className="mx-auto flex max-w-310 flex-col items-start justify-between gap-4 px-6 py-10 text-[13px] text-ink/55 sm:flex-row sm:items-center sm:px-10">
         <span>© {new Date().getUTCFullYear()} Brant · {t.footer.tag}</span>
         <div className="flex items-center gap-6">
           <Link href="/about" className="link-underline hover:text-ink">{t.footer.about}</Link>

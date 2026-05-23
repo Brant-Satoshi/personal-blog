@@ -77,7 +77,7 @@ export default async function PostPage({ params }: PageProps) {
     <div className="page-surface min-h-screen">
       <SiteHeader />
 
-      <section className="mx-auto max-w-[1240px] px-6 pt-28 pb-10 sm:px-10 sm:pt-36 sm:pb-14">
+      <section className="mx-auto max-w-310 px-6 pt-28 pb-10 sm:px-10 sm:pt-36 sm:pb-14">
         <div className="reveal max-w-3xl" style={{ animationDelay: "120ms" }}>
           <h1 className="text-[42px] font-bold leading-[1.05] tracking-tight text-ink sm:text-[58px]">
             {post.title}
@@ -109,7 +109,7 @@ export default async function PostPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1240px] px-6 pb-32 sm:px-10">
+      <section className="mx-auto max-w-310 px-6 pb-32 sm:px-10">
         <div className="grid grid-cols-1 gap-x-14 gap-y-12 lg:grid-cols-12">
           <article id="introduction" className="reveal scroll-mt-28 lg:col-span-8">
             <div

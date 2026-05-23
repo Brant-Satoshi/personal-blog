@@ -42,7 +42,7 @@ export function MobileNav({
 
       {open ? (
         <div className="page-surface fixed inset-0 z-50 flex flex-col">
-          <div className="mx-auto flex w-full max-w-[1240px] items-center justify-end px-6 py-6">
+          <div className="mx-auto flex w-full max-w-310 items-center justify-end px-6 py-6">
             <button
               type="button"
               aria-label={menuLabel}
@@ -52,7 +52,7 @@ export function MobileNav({
               <X className="h-[18px] w-[18px]" strokeWidth={1.9} />
             </button>
           </div>
-          <nav className="mx-auto flex w-full max-w-[1240px] flex-col px-6 pt-4">
+          <nav className="mx-auto flex w-full max-w-310 flex-col px-6 pt-4">
             {items.map((item) => (
               <Link
                 key={item.label}

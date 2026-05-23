@@ -9,7 +9,7 @@ export default async function AboutPage() {
     <div className="page-surface min-h-screen">
       <SiteHeader />
 
-      <section className="mx-auto max-w-[1240px] px-6 pt-24 pb-10 sm:px-10 sm:pt-32 sm:pb-14">
+      <section className="mx-auto max-w-310 px-6 pt-24 pb-10 sm:px-10 sm:pt-32 sm:pb-14">
         <div className="reveal max-w-2xl">
           <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
             {t.about.eyebrow}
@@ -20,7 +20,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1240px] px-6 pb-32 sm:px-10">
+      <section className="mx-auto max-w-310 px-6 pb-32 sm:px-10">
         <div className="reveal markdown max-w-2xl" style={{ animationDelay: "120ms" }}>
           <p>{t.about.body1}</p>
           <p>{t.about.body2}</p>
