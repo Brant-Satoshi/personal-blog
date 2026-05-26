@@ -138,6 +138,14 @@
   margin: 2rem 0;
 }
 
+.markdown img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+}
+
 .dark .markdown {
   color: rgba(230, 236, 245, 0.82);
 }
