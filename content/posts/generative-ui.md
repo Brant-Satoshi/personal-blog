@@ -9,7 +9,7 @@ category: AI
 
 ![论文 Figure 1：Generative UI 实现产出的若干结果总览](/posts/generative-ui/figure-1.jpg)
 
-## 一句话总结
+## TL, DR
 
 如今 LLM 的输出几乎都是「markdown 文字墙」。这篇论文展示了：在合适的 system prompt + 工具集（图像生成、搜索）配合下，现代 LLM 可以稳定地为任意 prompt 直接生成一个完整、可交互的 HTML 网页——一个面向当前这次提问、即时构造出来的「专属应用」。在人工评测中，这种生成式 UI 大幅好于 markdown 输出，并且在约 50% 的 case 上接近人类专家手写的网站。论文同时把这种能力定性为「涌现能力」：从 Gemini 2.0 Flash-Lite 到 Gemini 3，错误率从 60% 降到 0%，ELO 从 1183 跳到 1706。
 

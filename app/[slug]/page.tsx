@@ -77,49 +77,49 @@ export default async function PostPage({ params }: PageProps) {
     <div className="page-surface min-h-screen">
       <SiteHeader />
 
-      <section className="mx-auto max-w-310 px-6 pt-28 pb-10 sm:px-10 sm:pt-36 sm:pb-14">
-        <div className="reveal max-w-3xl" style={{ animationDelay: "120ms" }}>
-          <h1 className="text-[2rem] font-bold leading-[1.1] tracking-tight text-ink sm:text-[44px]">
-            {post.title}
-          </h1>
-          <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-ink/65 sm:text-[19px]">
-            {post.summary}
-          </p>
-          <p className="mt-7 text-[14.5px] text-ink/60">
-            {post.category ? (
-              <>
-                <em className="not-italic text-ink/50">{t.post.filedUnder} </em>
-                <span className="font-semibold text-ink/85">{post.category}</span>
-                <em className="not-italic text-ink/50"> {t.post.on} </em>
-              </>
-            ) : (
-              <em className="not-italic text-ink/50">{t.post.publishedOn} </em>
-            )}
-            <span className="font-medium text-ink/85">{publishedOn}</span>
-            <span className="text-ink/50">.</span>
-            {updatedOn ? (
-              <>
-                {" "}
-                <em className="not-italic text-ink/50">{t.post.lastUpdated} </em>
-                <span className="font-medium text-ink/85">{updatedOn}</span>
-                <span className="text-ink/50">.</span>
-              </>
-            ) : null}
-          </p>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-310 px-6 pb-32 sm:px-10">
+      <section className="mx-auto max-w-310 px-6 pt-28 pb-32 sm:px-10 sm:pt-36">
         <div className="grid grid-cols-1 gap-x-14 gap-y-12 lg:grid-cols-12">
-          <article id="introduction" className="reveal scroll-mt-28 lg:col-span-8">
-            <div
-              className="markdown"
-              dangerouslySetInnerHTML={{ __html: post.html }}
-            />
-            <MermaidRenderer key={`mermaid-${slug}`} />
-            <CodeCopyButtons />
-            <CodeGroups key={`groups-${slug}`} />
-          </article>
+          <div className="lg:col-span-8">
+            <div className="reveal max-w-3xl" style={{ animationDelay: "120ms" }}>
+              <h1 className="text-[2rem] font-bold leading-[1.1] tracking-tight text-ink sm:text-[44px]">
+                {post.title}
+              </h1>
+              <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-ink/65 sm:text-[19px]">
+                {post.summary}
+              </p>
+              <p className="mt-7 text-[14.5px] text-ink/60">
+                {post.category ? (
+                  <>
+                    <em className="not-italic text-ink/50">{t.post.filedUnder} </em>
+                    <span className="font-semibold text-ink/85">{post.category}</span>
+                    <em className="not-italic text-ink/50"> {t.post.on} </em>
+                  </>
+                ) : (
+                  <em className="not-italic text-ink/50">{t.post.publishedOn} </em>
+                )}
+                <span className="font-medium text-ink/85">{publishedOn}</span>
+                <span className="text-ink/50">.</span>
+                {updatedOn ? (
+                  <>
+                    {" "}
+                    <em className="not-italic text-ink/50">{t.post.lastUpdated} </em>
+                    <span className="font-medium text-ink/85">{updatedOn}</span>
+                    <span className="text-ink/50">.</span>
+                  </>
+                ) : null}
+              </p>
+            </div>
+
+            <article id="introduction" className="reveal scroll-mt-28 mt-12 sm:mt-14">
+              <div
+                className="markdown"
+                dangerouslySetInnerHTML={{ __html: post.html }}
+              />
+              <MermaidRenderer key={`mermaid-${slug}`} />
+              <CodeCopyButtons />
+              <CodeGroups key={`groups-${slug}`} />
+            </article>
+          </div>
 
           <aside className="hidden lg:col-span-3 lg:col-start-10 lg:block">
             <TableOfContents items={tocItems} title={t.post.toc} />
