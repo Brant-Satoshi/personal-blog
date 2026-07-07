@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, JetBrains_Mono, Noto_Sans_SC } from "next/font/google";
+import { Geist, Geist_Mono, JetBrains_Mono, Newsreader, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
 import { getDict, getLocale } from "@/lib/i18n";
 
@@ -16,6 +16,12 @@ const geistMono = Geist_Mono({
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+});
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  weight: "500",
 });
 
 const notoSansSC = Noto_Sans_SC({
@@ -55,7 +61,7 @@ export default async function RootLayout({
   return (
     <html lang={t.htmlLang} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} ${notoSansSC.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} ${newsreader.variable} ${notoSansSC.variable} antialiased`}
       >
         <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
         {children}

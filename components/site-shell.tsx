@@ -22,10 +22,9 @@ export async function SiteHeader() {
       <div className="mx-auto flex max-w-310 items-center justify-between px-6 py-3.5 sm:px-10 sm:py-4">
         <Link
           href="/"
-          className="group flex items-baseline gap-1.5 text-[22px] font-semibold tracking-tight text-azure"
+          className="font-serif text-[22px] font-medium tracking-[-0.01em] text-ink"
         >
-          <span>Brant</span>
-          <span>Satoshi</span>
+          Brant Satoshi<span className="text-[#b8b2a7]">.</span>
         </Link>
 
         <nav className="hidden items-center gap-9 text-[15px] font-medium text-ink/80 md:flex">

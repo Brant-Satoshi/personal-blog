@@ -13,6 +13,7 @@
   --color-pink: var(--pink);
   --color-azure: var(--azure);
   --font-sans: var(--font-geist-sans), var(--font-noto-sans-sc);
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
   --font-mono: var(--font-jetbrains-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
