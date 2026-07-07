@@ -227,6 +227,11 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
         }
         return `<h${level} id="${id}">${text}</h${level}>\n`;
       },
+      link(href: string, title: string | null | undefined, text: string) {
+        const titleAttr = title ? ` title="${escapeHtml(title)}"` : "";
+        const targetAttr = href.startsWith("#") ? "" : ` target="_blank" rel="noopener noreferrer"`;
+        return `<a href="${escapeHtml(href)}"${titleAttr}${targetAttr}>${text}</a>`;
+      },
       code(code: string, infostring: string | undefined, escaped: boolean) {
         const lang = ((infostring ?? "").match(/^\S*/)?.[0] ?? "").toLowerCase();
         if (lang === "mermaid") {
