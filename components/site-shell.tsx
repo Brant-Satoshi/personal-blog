@@ -24,7 +24,7 @@ export async function SiteHeader() {
           href="/"
           className="font-serif text-[22px] font-medium tracking-[-0.01em] text-ink"
         >
-          Brant Satoshi<span className="text-[#b8b2a7]">.</span>
+          Brant Satoshi<span className="text-azure">.</span>
         </Link>
 
         <nav className="hidden items-center gap-9 text-[15px] font-medium text-ink/80 md:flex">
