@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { SiteFooter, SiteHeader } from "@/components/site-shell";
 import {
   CATEGORIES,
   getCategoryCounts,
@@ -23,9 +22,7 @@ export default async function CategoriesPage() {
   const t = getDict(locale);
 
   return (
-    <div className="page-surface min-h-screen">
-      <SiteHeader />
-
+    <>
       <section className="mx-auto max-w-310 px-6 pt-24 pb-16 sm:px-10 sm:pt-32">
         <div className="reveal max-w-2xl">
           <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
@@ -77,8 +74,6 @@ export default async function CategoriesPage() {
           })}
         </ul>
       </section>
-
-      <SiteFooter />
-    </div>
+    </>
   );
 }

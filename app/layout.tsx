@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, JetBrains_Mono, Newsreader, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
+import { SiteFooter, SiteHeader } from "@/components/site-shell";
 import { getDict, getLocale } from "@/lib/i18n";
 
 const geistSans = Geist({
@@ -64,7 +65,11 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} ${newsreader.variable} ${notoSansSC.variable} antialiased`}
       >
         <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
-        {children}
+        <div className="page-surface min-h-screen">
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );

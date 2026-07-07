@@ -75,19 +75,21 @@ export function getCategoryBySlug(slug: string): Category | undefined {
   return CATEGORIES.find((c) => c.slug === slug);
 }
 
+export function findCategoryByName(name: string | undefined): Category | undefined {
+  if (!name) return undefined;
+  const target = name.toLowerCase();
+  return CATEGORIES.find((c) => c.name.toLowerCase() === target);
+}
+
 export function getPostsByCategory(slug: string): PostMeta[] {
-  const category = getCategoryBySlug(slug);
-  if (!category) return [];
-  const target = category.name.toLowerCase();
-  return getAllPosts().filter((post) => post.category?.toLowerCase() === target);
+  return getAllPosts().filter((post) => findCategoryByName(post.category)?.slug === slug);
 }
 
 export function getCategoryCounts(): Record<string, number> {
   const counts: Record<string, number> = {};
   for (const cat of CATEGORIES) counts[cat.slug] = 0;
   for (const post of getAllPosts()) {
-    if (!post.category) continue;
-    const match = CATEGORIES.find((c) => c.name.toLowerCase() === post.category!.toLowerCase());
+    const match = findCategoryByName(post.category);
     if (match) counts[match.slug] += 1;
   }
   return counts;

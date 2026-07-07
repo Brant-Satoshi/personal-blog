@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { SiteFooter, SiteHeader } from "@/components/site-shell";
 import {
   CATEGORIES,
   getCategoryBySlug,
@@ -67,9 +66,7 @@ export default async function CategoryPage({ params }: PageProps) {
   const count = posts.length;
 
   return (
-    <div className="page-surface min-h-screen">
-      <SiteHeader />
-
+    <>
       <section className="mx-auto max-w-310 px-6 pt-24 pb-10 sm:px-10 sm:pt-32">
         <Link
           href="/categories"
@@ -109,8 +106,6 @@ export default async function CategoryPage({ params }: PageProps) {
           </div>
         )}
       </section>
-
-      <SiteFooter />
-    </div>
+    </>
   );
 }

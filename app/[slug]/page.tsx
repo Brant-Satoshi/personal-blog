@@ -1,10 +1,11 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { SiteFooter, SiteHeader } from "@/components/site-shell";
 import { MermaidRenderer } from "@/components/mermaid-renderer";
 import { CodeCopyButtons } from "@/components/code-copy";
 import { CodeGroups } from "@/components/code-groups";
 import { getAllPosts, getPostBySlug, type TocItem } from "@/lib/posts";
+import { findCategoryByName, getCategoryName } from "@/lib/categories";
 import { TableOfContents } from "./table-of-contents";
 import { TocMenu } from "@/components/toc-menu";
 import { getDict, getLocale, type Locale } from "@/lib/i18n";
@@ -66,6 +67,7 @@ export default async function PostPage({ params }: PageProps) {
   const t = getDict(locale);
   const publishedOn = formatLongDate(post.date, locale);
   const updatedOn = post.updated ? formatLongDate(post.updated, locale) : null;
+  const category = findCategoryByName(post.category);
 
   const tocItems: TocItem[] =
     post.toc.length > 0
@@ -74,9 +76,7 @@ export default async function PostPage({ params }: PageProps) {
   const showMobileToc = post.toc.length >= MOBILE_TOC_MIN_HEADINGS;
 
   return (
-    <div className="page-surface min-h-screen">
-      <SiteHeader />
-
+    <>
       <section className="mx-auto max-w-310 px-6 pt-28 pb-32 sm:px-10 sm:pt-36">
         <div className="grid grid-cols-1 gap-x-14 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-8">
@@ -91,7 +91,16 @@ export default async function PostPage({ params }: PageProps) {
                 {post.category ? (
                   <>
                     <em className="not-italic text-ink/50">{t.post.filedUnder} </em>
-                    <span className="font-semibold text-ink/85">{post.category}</span>
+                    {category ? (
+                      <Link
+                        href={`/categories/${category.slug}`}
+                        className="font-semibold text-ink/85 transition-colors hover:text-azure"
+                      >
+                        {getCategoryName(category, locale)}
+                      </Link>
+                    ) : (
+                      <span className="font-semibold text-ink/85">{post.category}</span>
+                    )}
                     <em className="not-italic text-ink/50"> {t.post.on} </em>
                   </>
                 ) : (
@@ -130,8 +139,6 @@ export default async function PostPage({ params }: PageProps) {
       {showMobileToc ? (
         <TocMenu items={tocItems} label={t.post.toc} />
       ) : null}
-
-      <SiteFooter />
-    </div>
+    </>
   );
 }

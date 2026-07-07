@@ -1,4 +1,3 @@
-import { SiteFooter, SiteHeader } from "@/components/site-shell";
 import { getDict, getLocale } from "@/lib/i18n";
 
 export default async function AboutPage() {
@@ -6,9 +5,7 @@ export default async function AboutPage() {
   const t = getDict(locale);
 
   return (
-    <div className="page-surface min-h-screen">
-      <SiteHeader />
-
+    <>
       <section className="mx-auto max-w-310 px-6 pt-24 pb-10 sm:px-10 sm:pt-32 sm:pb-14">
         <div className="reveal max-w-2xl">
           <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-pink">
@@ -26,8 +23,6 @@ export default async function AboutPage() {
           <p>{t.about.body2}</p>
         </div>
       </section>
-
-      <SiteFooter />
-    </div>
+    </>
   );
 }
