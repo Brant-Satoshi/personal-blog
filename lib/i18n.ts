@@ -52,6 +52,7 @@ type Dict = {
     lastUpdated: string;
     introduction: string;
     toc: string;
+    like: string;
   };
   about: { eyebrow: string; title: string; body1: string; body2: string };
   footer: { tag: string; about: string; rss: string; twitter: string };
@@ -111,6 +112,7 @@ const en: Dict = {
     lastUpdated: "Last updated on",
     introduction: "Introduction",
     toc: "Table of Contents",
+    like: "Like this post",
   },
   about: {
     eyebrow: "About",
@@ -181,6 +183,7 @@ const zh: Dict = {
     lastUpdated: "最近更新于",
     introduction: "引言",
     toc: "目录",
+    like: "点赞",
   },
   about: {
     eyebrow: "关于",

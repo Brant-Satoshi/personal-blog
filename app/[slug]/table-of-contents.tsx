@@ -75,7 +75,7 @@ export function TableOfContents({ items, title }: Props) {
     });
 
   return (
-    <nav aria-label="Table of contents" className="sticky top-28">
+    <nav aria-label="Table of contents">
       <h3 className="text-[13px] font-bold uppercase tracking-[0.18em] text-ink">
         {title}
       </h3>

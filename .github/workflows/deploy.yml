@@ -71,6 +71,10 @@ jobs:
                 ports:
                   - "3000:3000"
                 restart: unless-stopped
+                volumes:
+                  - blog-data:/app/data
+            volumes:
+              blog-data:
             EOF
 
             docker compose pull

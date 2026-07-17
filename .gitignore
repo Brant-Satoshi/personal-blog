@@ -20,6 +20,9 @@
 # production
 /build
 
+# runtime data (like counts; volume-mounted in production)
+/data/
+
 # misc
 .DS_Store
 *.pem

@@ -351,3 +351,178 @@ html.dark {
     transition: none;
   }
 }
+
+/* Like button — the heart fills one step per click and bursts into
+   full red (with a happy face + particles) on the 10th click. */
+.like-button {
+  --like-base-hi: #d6dae3;
+  --like-base-lo: #b7bdcb;
+  --like-red-hi: #ff5d73;
+  --like-red-lo: #e11d48;
+  --like-red-text: #e11d48;
+  --like-face: #414a5c;
+  --like-face-full: #ffffff;
+  --like-shadow: rgba(12, 19, 34, 0.16);
+}
+
+.dark .like-button {
+  --like-base-hi: #475061;
+  --like-base-lo: #333b4a;
+  --like-red-hi: #ff7d90;
+  --like-red-lo: #f43f5e;
+  --like-red-text: #fb7185;
+  --like-face: #cdd5e2;
+  --like-shadow: rgba(0, 0, 0, 0.45);
+}
+
+.like-heart {
+  filter: drop-shadow(0 3px 8px var(--like-shadow));
+}
+
+.like-heart-fill {
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.like-count-red {
+  color: var(--like-red-text);
+}
+
+/* Per-click feedback. -alt duplicates exist so consecutive rapid clicks
+   restart the animation (same-name animations don't retrigger). */
+.like-fx-pop {
+  animation: like-pop 0.4s cubic-bezier(0.3, 0.9, 0.3, 1.4);
+}
+.like-fx-pop-alt {
+  animation: like-pop-alt 0.4s cubic-bezier(0.3, 0.9, 0.3, 1.4);
+}
+.like-fx-boom {
+  animation: like-boom 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.like-fx-shake {
+  animation: like-shake 0.45s ease;
+}
+.like-fx-shake-alt {
+  animation: like-shake-alt 0.45s ease;
+}
+
+@keyframes like-pop {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.86); }
+  70% { transform: scale(1.12) rotate(2deg); }
+  100% { transform: scale(1); }
+}
+
+@keyframes like-pop-alt {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.86); }
+  70% { transform: scale(1.12) rotate(-2deg); }
+  100% { transform: scale(1); }
+}
+
+@keyframes like-boom {
+  0% { transform: scale(1); }
+  25% { transform: scale(0.78) rotate(-6deg); }
+  55% { transform: scale(1.32) rotate(4deg); }
+  80% { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+@keyframes like-shake {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-8deg); }
+  45% { transform: rotate(7deg); }
+  70% { transform: rotate(-4deg); }
+  88% { transform: rotate(2deg); }
+}
+
+@keyframes like-shake-alt {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(8deg); }
+  45% { transform: rotate(-7deg); }
+  70% { transform: rotate(4deg); }
+  88% { transform: rotate(-2deg); }
+}
+
+/* Celebration burst at 10 likes: an expanding ring + radiating dots. */
+.like-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.like-burst::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border-radius: 9999px;
+  border: 3px solid var(--like-red-hi);
+  opacity: 0;
+  animation: like-ring 0.75s ease-out;
+}
+
+.like-burst i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 9999px;
+  background: var(--like-red-lo);
+  transform: translate(-50%, -50%);
+  animation: like-particle 0.75s cubic-bezier(0.15, 0.7, 0.3, 1) forwards;
+}
+
+.like-burst i:nth-child(3n) {
+  background: var(--like-red-hi);
+}
+
+.like-burst i:nth-child(4n) {
+  background: #fbbf24;
+}
+
+@keyframes like-ring {
+  0% {
+    transform: scale(0.4);
+    opacity: 0.9;
+    border-width: 8px;
+  }
+  100% {
+    transform: scale(4.6);
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+@keyframes like-particle {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--like-a)) translateX(8px)
+      scale(0.3);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--like-a))
+      translateX(var(--like-d)) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .like-heart-fill {
+    transition: none;
+  }
+  .like-fx-pop,
+  .like-fx-pop-alt,
+  .like-fx-boom,
+  .like-fx-shake,
+  .like-fx-shake-alt {
+    animation: none;
+  }
+  .like-burst {
+    display: none;
+  }
+}

@@ -4,9 +4,11 @@ import type { Metadata } from "next";
 import { MermaidRenderer } from "@/components/mermaid-renderer";
 import { CodeCopyButtons } from "@/components/code-copy";
 import { CodeGroups } from "@/components/code-groups";
+import { getLikes } from "@/lib/likes";
 import { getAllPosts, getPostBySlug, type TocItem } from "@/lib/posts";
 import { findCategoryByName, getCategoryName } from "@/lib/categories";
 import { TableOfContents } from "./table-of-contents";
+import { LikeButton } from "./like-button";
 import { TocMenu } from "@/components/toc-menu";
 import { getDict, getLocale, type Locale } from "@/lib/i18n";
 
@@ -74,6 +76,7 @@ export default async function PostPage({ params }: PageProps) {
       ? [{ id: "introduction", text: t.post.introduction, depth: 2 }, ...post.toc]
       : [];
   const showMobileToc = post.toc.length >= MOBILE_TOC_MIN_HEADINGS;
+  const initialLikes = getLikes(slug);
 
   return (
     <>
@@ -128,10 +131,17 @@ export default async function PostPage({ params }: PageProps) {
               <CodeCopyButtons />
               <CodeGroups key={`groups-${slug}`} />
             </article>
+
+            <div className="mt-16 flex justify-center lg:hidden">
+              <LikeButton slug={slug} label={t.post.like} initialLikes={initialLikes} />
+            </div>
           </div>
 
           <aside className="hidden lg:col-span-3 lg:col-start-10 lg:block">
-            <TableOfContents items={tocItems} title={t.post.toc} />
+            <div className="sticky top-28 flex flex-col gap-12">
+              <TableOfContents items={tocItems} title={t.post.toc} />
+              <LikeButton slug={slug} label={t.post.like} initialLikes={initialLikes} />
+            </div>
           </aside>
         </div>
       </section>
