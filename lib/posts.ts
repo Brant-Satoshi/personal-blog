@@ -3,6 +3,7 @@ import path from "node:path";
 import { cache } from "react";
 import matter from "gray-matter";
 import { renderMarkdown, type TocItem } from "./markdown";
+import { estimateReadingTime } from "./post-meta";
 
 export type { TocItem };
 
@@ -14,6 +15,7 @@ export type PostMeta = {
   excerpt?: string;
   category?: string;
   updated?: string;
+  readingTime: number;
 };
 
 export type Post = PostMeta & {
@@ -83,6 +85,7 @@ function toPostMeta(slug: string, data: Record<string, unknown>, content: string
     excerpt: optionalString(data.excerpt) ?? extractExcerpt(content),
     category: optionalString(data.category),
     updated: normalizeDate(data.updated),
+    readingTime: estimateReadingTime(content),
   };
 }
 

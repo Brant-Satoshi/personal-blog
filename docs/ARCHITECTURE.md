@@ -4,11 +4,11 @@
 
 | 领域 | 选择 | 理由 |
 |------|------|------|
-| 框架 | Next.js 15 | App Router、SSR、良好生态 |
+| 框架 | Next.js 16 | App Router、SSR、良好生态 |
 | 语言 | TypeScript | 类型安全 |
 | 样式 | Tailwind CSS | 原子化 CSS、开发效率高 |
 | 内容 | Markdown | 简单、版本友好、Git 协作 |
-| 部署 | Vercel | 零配置、边缘网络 |
+| 部署 | VPS + Docker | 构建镜像推送到 GHCR，SSH 部署到 VPS（standalone 服务，端口 3000） |
 
 ## 路由结构
 

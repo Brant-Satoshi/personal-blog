@@ -13,6 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t.meta.categoriesTitle,
     description: t.meta.categoriesDescription,
+    alternates: { canonical: "/categories" },
   };
 }
 

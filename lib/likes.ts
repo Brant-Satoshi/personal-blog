@@ -30,6 +30,10 @@ export function getLikes(slug: string): number {
   return load()[slug] ?? 0;
 }
 
+// Keep every fs call here synchronous. A single Node process runs this
+// function to completion without yielding, so concurrent requests can't
+// interleave the read-modify-write — no lost updates, no write queue needed.
+// Switching to async fs (fs.promises) would reintroduce that race.
 export function addLike(slug: string): number {
   const counts = load();
   counts[slug] = (counts[slug] ?? 0) + 1;

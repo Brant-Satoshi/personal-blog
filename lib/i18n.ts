@@ -33,6 +33,7 @@ type Dict = {
     switchLanguage: string;
     toLight: string;
     toDark: string;
+    readingTime: (minutes: number) => string;
   };
   search: { placeholder: string; hint: string; noResults: string };
   home: { articles: string; browseBy: string; popular: string; empty: string };
@@ -55,7 +56,7 @@ type Dict = {
     like: string;
   };
   about: { eyebrow: string; title: string; body1: string; body2: string };
-  footer: { tag: string; about: string; rss: string; twitter: string };
+  footer: { tag: string; about: string; feed: string };
 };
 
 const en: Dict = {
@@ -83,6 +84,7 @@ const en: Dict = {
     switchLanguage: "切换到中文",
     toLight: "Switch to light mode",
     toDark: "Switch to dark mode",
+    readingTime: (minutes: number) => `${minutes} min read`,
   },
   search: {
     placeholder: "Search posts",
@@ -125,8 +127,7 @@ const en: Dict = {
   footer: {
     tag: "All Rights Reserved.",
     about: "About",
-    rss: "RSS",
-    twitter: "Twitter",
+    feed: "RSS",
   },
 };
 
@@ -155,6 +156,7 @@ const zh: Dict = {
     switchLanguage: "Switch to English",
     toLight: "切换到浅色模式",
     toDark: "切换到深色模式",
+    readingTime: (minutes: number) => `${minutes} 分钟阅读`,
   },
   search: {
     placeholder: "搜索文章",
@@ -196,8 +198,7 @@ const zh: Dict = {
   footer: {
     tag: "保留所有权利",
     about: "关于",
-    rss: "RSS",
-    twitter: "Twitter",
+    feed: "RSS",
   },
 };
 

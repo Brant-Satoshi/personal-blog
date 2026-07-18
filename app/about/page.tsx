@@ -1,4 +1,13 @@
+import type { Metadata } from "next";
 import { getDict, getLocale } from "@/lib/i18n";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = getDict(await getLocale());
+  return {
+    title: t.footer.about,
+    alternates: { canonical: "/about" },
+  };
+}
 
 export default async function AboutPage() {
   const locale = await getLocale();
