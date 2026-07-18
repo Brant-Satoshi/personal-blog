@@ -1,9 +1,30 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getAllPosts, type PostMeta } from "@/lib/posts";
 import { CATEGORIES, getCategoryName } from "@/lib/categories";
 import { getDict, getLocale, type Locale } from "@/lib/i18n";
+import { formatLongDate } from "@/lib/post-meta";
 
-function ArticleCard({ post, readMore }: { post: PostMeta; readMore: string }) {
+export function generateMetadata(): Metadata {
+  return {
+    alternates: {
+      canonical: "/",
+      types: { "application/rss+xml": "/feed.xml" },
+    },
+  };
+}
+
+function ArticleCard({
+  post,
+  readMore,
+  locale,
+  readingTime,
+}: {
+  post: PostMeta;
+  readMore: string;
+  locale: Locale;
+  readingTime: string;
+}) {
   return (
     <article className="reveal flex flex-col">
       <Link href={`/${post.slug}`} className="group inline-flex w-fit">
@@ -13,6 +34,11 @@ function ArticleCard({ post, readMore }: { post: PostMeta; readMore: string }) {
       </Link>
       <p className="mt-3 text-[17px] leading-snug text-ink/60">
         {post.summary}
+      </p>
+      <p className="mt-4 text-[13.5px] font-medium text-ink/50">
+        <time dateTime={post.date}>{formatLongDate(post.date, locale)}</time>
+        <span aria-hidden> · </span>
+        <span>{readingTime}</span>
       </p>
       {post.excerpt ? (
         <p className="mt-6 text-[16px] leading-[1.65] text-ink/65">
@@ -49,7 +75,13 @@ export default async function Home() {
           ) : (
             <div className="mt-10 flex flex-col gap-12 sm:mt-12 sm:gap-16">
               {posts.map((post) => (
-                <ArticleCard key={post.slug} post={post} readMore={t.actions.readMore} />
+                <ArticleCard
+                  key={post.slug}
+                  post={post}
+                  readMore={t.actions.readMore}
+                  locale={locale}
+                  readingTime={t.actions.readingTime(post.readingTime)}
+                />
               ))}
             </div>
           )}

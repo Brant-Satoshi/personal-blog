@@ -2,23 +2,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
-  CATEGORIES,
   getCategoryBySlug,
   getCategoryDescription,
   getCategoryName,
   getPostsByCategory,
 } from "@/lib/categories";
 import type { PostMeta } from "@/lib/posts";
-import { getDict, getLocale } from "@/lib/i18n";
+import { getDict, getLocale, type Locale } from "@/lib/i18n";
+import { formatLongDate } from "@/lib/post-meta";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return CATEGORIES.map((c) => ({ slug: c.slug }));
-}
-
+// No generateStaticParams: the root layout reads the `locale` cookie, which
+// opts every route into on-demand rendering, so a prerender list is never used.
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const locale = await getLocale();
@@ -29,10 +27,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${name} · ${t.meta.categoriesTitle}`,
     description: getCategoryDescription(category, locale),
+    alternates: { canonical: `/categories/${category.slug}` },
   };
 }
 
-function PostCard({ post, readMore }: { post: PostMeta; readMore: string }) {
+function PostCard({
+  post,
+  readMore,
+  locale,
+  readingTime,
+}: {
+  post: PostMeta;
+  readMore: string;
+  locale: Locale;
+  readingTime: string;
+}) {
   return (
     <article className="group flex h-full flex-col rounded-2xl border border-ink/10 bg-paper/60 p-7 transition-colors hover:border-azure/50 hover:bg-paper/90">
       <Link href={`/${post.slug}`} className="inline-flex w-fit">
@@ -43,9 +52,14 @@ function PostCard({ post, readMore }: { post: PostMeta; readMore: string }) {
       {post.summary ? (
         <p className="mt-3 text-[15.5px] leading-[1.6] text-ink/65">{post.summary}</p>
       ) : null}
+      <p className="mt-4 text-[13px] font-medium text-ink/50">
+        <time dateTime={post.date}>{formatLongDate(post.date, locale)}</time>
+        <span aria-hidden> · </span>
+        <span>{readingTime}</span>
+      </p>
       <Link
         href={`/${post.slug}`}
-        className="link-arrow mt-6 inline-flex w-fit items-center gap-2 text-[14.5px] font-bold text-ink hover:text-azure"
+        className="link-arrow mt-auto pt-6 inline-flex w-fit items-center gap-2 text-[14.5px] font-bold text-ink hover:text-azure"
       >
         {readMore}
         <span className="arrow-slide text-azure" aria-hidden>→</span>
@@ -101,7 +115,13 @@ export default async function CategoryPage({ params }: PageProps) {
         ) : (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {posts.map((post) => (
-              <PostCard key={post.slug} post={post} readMore={t.actions.readMore} />
+              <PostCard
+                key={post.slug}
+                post={post}
+                readMore={t.actions.readMore}
+                locale={locale}
+                readingTime={t.actions.readingTime(post.readingTime)}
+              />
             ))}
           </div>
         )}

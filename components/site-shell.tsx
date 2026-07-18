@@ -63,8 +63,7 @@ export async function SiteFooter() {
         <span>© {new Date().getUTCFullYear()} Brant · {t.footer.tag}</span>
         <div className="flex items-center gap-6">
           <Link href="/about" className="link-underline hover:text-ink">{t.footer.about}</Link>
-          <Link href="/" className="link-underline hover:text-ink">{t.footer.rss}</Link>
-          <Link href="/" className="link-underline hover:text-ink">{t.footer.twitter}</Link>
+          <Link href="/feed.xml" className="link-underline hover:text-ink">{t.footer.feed}</Link>
         </div>
       </div>
     </footer>

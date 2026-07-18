@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, JetBrains_Mono, Newsreader, Noto_Sans_SC } from "nex
 import "./globals.css";
 import { SiteFooter, SiteHeader } from "@/components/site-shell";
 import { getDict, getLocale } from "@/lib/i18n";
+import { SITE_AUTHOR, SITE_NAME } from "@/lib/site";
+import { getCurrentSiteUrl } from "@/lib/request-url";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,9 +36,34 @@ const notoSansSC = Noto_Sans_SC({
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const t = getDict(locale);
+  const siteUrl = await getCurrentSiteUrl();
   return {
-    title: t.meta.siteTitle,
+    metadataBase: siteUrl,
+    title: {
+      default: t.meta.siteTitle,
+      template: `%s · ${SITE_NAME}`,
+    },
     description: t.meta.siteDescription,
+    applicationName: SITE_NAME,
+    authors: [{ name: SITE_AUTHOR }],
+    creator: SITE_AUTHOR,
+    publisher: SITE_AUTHOR,
+    alternates: {
+      types: { "application/rss+xml": "/feed.xml" },
+    },
+    openGraph: {
+      type: "website",
+      url: "/",
+      siteName: SITE_NAME,
+      title: t.meta.siteTitle,
+      description: t.meta.siteDescription,
+      locale: locale === "zh" ? "zh_CN" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t.meta.siteTitle,
+      description: t.meta.siteDescription,
+    },
   };
 }
 
