@@ -20,7 +20,7 @@ There is no `test` script and no tests in the repo. CI (`.github/workflows/ci.ym
 
 Static-ish blog: Markdown files in `content/posts/` are read at request/build time and rendered via the Next.js App Router. Adding a post = drop a `.md` file in `content/posts/` with `title`, `date`, `summary` frontmatter (optional: `excerpt`, `category`, `updated`); no code change required.
 
-- **Framework**: Next.js **16.1.6** App Router + React 19. Several docs (`ai/CONTEXT.md`, `docs/ARCHITECTURE.md`) still say "Next.js 15" — the code is on 16.
+- **Framework**: Next.js **16.1.6** App Router + React 19.
 - **Content pipeline**: [lib/posts.ts](lib/posts.ts) is the single source of truth for post loading. `getAllPosts()` returns sorted `PostMeta`; `getPostBySlug()` parses frontmatter with `gray-matter` and renders the body via `renderMarkdown()` from [lib/markdown.ts](lib/markdown.ts). Metadata derived from the body — the auto-excerpt used when frontmatter omits one, the CJK-aware `readingTime`, long-date formatting — lives in [lib/post-meta.ts](lib/post-meta.ts); excerpt and reading time share one `stripMarkdown()` pass so they never disagree about what counts as prose. Loading reads synchronously from disk via `node:fs`, wrapped in React `cache()` plus a module-level cache in production (post files are baked into the image) — Server Components / build context only, never client components.
 - **Markdown rendering**: [lib/markdown.ts](lib/markdown.ts) drives `marked` with a custom renderer: `h2`/`h3` headings get slugified `id`s and feed the TOC, code is highlighted with `shiki` (github-light/github-dark dual themes), ` ```mermaid ` fences become `.mermaid-diagram` placeholders, adjacent fenced blocks in different languages merge into one language-switcher "code group", and code blocks get copy buttons. The interactive parts are hydrated on the post page by client components: [components/code-copy.tsx](components/code-copy.tsx), [components/code-groups.tsx](components/code-groups.tsx), and [components/mermaid-renderer.tsx](components/mermaid-renderer.tsx) (lazy-imports `mermaid`; zoom/preview controls in [components/mermaid-zoom.ts](components/mermaid-zoom.ts)).
 - **Categories**: [lib/categories.ts](lib/categories.ts) defines a fixed `CATEGORIES` array (slug + bilingual name/description + lucide icon). A post joins a category by its `category` frontmatter string, matched case-insensitively against the category's English `name`. Categories are not derived from posts — editing the taxonomy means editing this file.
@@ -48,9 +48,11 @@ From [ai/CONTEXT.md](ai/CONTEXT.md) and [ai/STYLE.md](ai/STYLE.md) (both in Chin
 
 ## Reference Documents
 
-Read these before non-trivial work, but verify against current code — several are out of date:
-- [ai/CONTEXT.md](ai/CONTEXT.md) — project overview, constraints (in Chinese; says Next.js 15)
-- [ai/STYLE.md](ai/STYLE.md) — naming + file-org conventions (Chinese)
-- [ai/PROMPTS.md](ai/PROMPTS.md) — workflow templates (Chinese)
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — planned route map and SEO strategy (Chinese; partly implemented — `robots.ts`, `sitemap.ts`, and the RSS feed now exist, while planned routes like `archive/` still don't)
-- [docs/PRD.md](docs/PRD.md), [docs/ROADMAP.md](docs/ROADMAP.md), [docs/DECISIONS/](docs/DECISIONS/) — product/decision context
+Read these before non-trivial work (all in Chinese; refreshed against the code in July 2026 — if they drift again, trust the code):
+- [ai/CONTEXT.md](ai/CONTEXT.md) — project overview + constraints
+- [ai/STYLE.md](ai/STYLE.md) — naming + file-org conventions
+- [ai/PROMPTS.md](ai/PROMPTS.md) — workflow templates
+- [ai/CHECKLIST.md](ai/CHECKLIST.md) — pre-delivery self-check
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — current route map, data flow, caching, SEO status (still-planned bits are marked)
+- [docs/PRD.md](docs/PRD.md) — product scope with implementation status; [docs/ROADMAP.md](docs/ROADMAP.md) — milestones + unordered candidate pool
+- [docs/WORKFLOW.md](docs/WORKFLOW.md) — how the docs/ and ai/ files link together
