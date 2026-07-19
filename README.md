@@ -44,8 +44,7 @@ pnpm start
 │   ├── PRD.md        # Product Requirements Document
 │   ├── ARCHITECTURE.md   # Architecture documentation
 │   ├── WORKFLOW.md   # Workflow guidelines
-│   ├── ROADMAP.md    # Roadmap
-│   └── DECISIONS/    # Architecture Decision Records
+│   └── ROADMAP.md    # Roadmap
 ├── ai/               # AI-assisted development configuration
 │   ├── CONTEXT.md    # Project overview + key constraints
 │   ├── STYLE.md      # Code style guidelines

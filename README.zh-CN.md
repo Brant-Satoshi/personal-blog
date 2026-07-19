@@ -44,8 +44,7 @@ pnpm start
 │   ├── PRD.md        # 产品需求文档
 │   ├── ARCHITECTURE.md   # 架构文档
 │   ├── WORKFLOW.md   # 工作流规范
-│   ├── ROADMAP.md    # 路线图
-│   └── DECISIONS/    # 技术决策记录
+│   └── ROADMAP.md    # 路线图
 ├── ai/               # AI 辅助开发配置
 │   ├── CONTEXT.md    # 项目概览 + 关键约束
 │   ├── STYLE.md      # 代码风格规范

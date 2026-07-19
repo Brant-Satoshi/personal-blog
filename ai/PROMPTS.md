@@ -8,14 +8,14 @@ Read context first
 Before doing anything, read: docs/PRD.md, docs/ARCHITECTURE.md, ai/CONTEXT.md, ai/STYLE.md.
 ```
 
-## 生成新页面
+## 新增文章
 
 ```
-在 app/[slug] 下创建文章详情页，需要：
-1. 从 content/posts 读取 Markdown 文件
-2. 使用 gray-matter 解析 frontmatter
-3. 渲染 Markdown 内容
-4. 添加 SEO 元信息
+在 content/posts/ 新建 <slug>.md：
+1. frontmatter：title、date、summary 必填；excerpt、category、updated 可选
+2. category 需匹配 lib/categories.ts 中某个分类的英文 name（大小写不敏感）
+3. 配图放 public/posts/<slug>/，正文以 /posts/<slug>/xxx.png 引用
+4. 无需改代码；生产环境重新构建镜像后生效
 ```
 
 ## 添加新功能
