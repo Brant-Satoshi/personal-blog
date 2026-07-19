@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getAllPosts, type PostMeta } from "@/lib/posts";
+import { getAllPosts } from "@/lib/posts";
 import { CATEGORIES, getCategoryName } from "@/lib/categories";
 import { getDict, getLocale, type Locale } from "@/lib/i18n";
-import { formatLongDate } from "@/lib/post-meta";
+import { PostCard } from "@/components/post-card";
 
 export function generateMetadata(): Metadata {
   return {
@@ -12,48 +12,6 @@ export function generateMetadata(): Metadata {
       types: { "application/rss+xml": "/feed.xml" },
     },
   };
-}
-
-function ArticleCard({
-  post,
-  readMore,
-  locale,
-  readingTime,
-}: {
-  post: PostMeta;
-  readMore: string;
-  locale: Locale;
-  readingTime: string;
-}) {
-  return (
-    <article className="reveal flex flex-col">
-      <Link href={`/${post.slug}`} className="group inline-flex w-fit">
-        <h3 className="text-[28px] font-bold leading-tight tracking-tight text-ink decoration-ink/40 underline-offset-[6px] group-hover:underline sm:text-[34px]">
-          {post.title}
-        </h3>
-      </Link>
-      <p className="mt-3 text-[17px] leading-snug text-ink/60">
-        {post.summary}
-      </p>
-      <p className="mt-4 text-[13.5px] font-medium text-ink/50">
-        <time dateTime={post.date}>{formatLongDate(post.date, locale)}</time>
-        <span aria-hidden> · </span>
-        <span>{readingTime}</span>
-      </p>
-      {post.excerpt ? (
-        <p className="mt-6 text-[16px] leading-[1.65] text-ink/65">
-          {post.excerpt}
-        </p>
-      ) : null}
-      <Link
-        href={`/${post.slug}`}
-        className="link-arrow mt-7 inline-flex w-fit items-center gap-2 text-[15px] font-bold text-ink hover:text-azure"
-      >
-        {readMore}
-        <span className="arrow-slide text-azure" aria-hidden>→</span>
-      </Link>
-    </article>
-  );
 }
 
 export default async function Home() {
@@ -75,9 +33,10 @@ export default async function Home() {
           ) : (
             <div className="mt-10 flex flex-col gap-12 sm:mt-12 sm:gap-16">
               {posts.map((post) => (
-                <ArticleCard
+                <PostCard
                   key={post.slug}
                   post={post}
+                  variant="featured"
                   readMore={t.actions.readMore}
                   locale={locale}
                   readingTime={t.actions.readingTime(post.readingTime)}

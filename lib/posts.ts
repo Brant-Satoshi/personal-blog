@@ -3,7 +3,7 @@ import path from "node:path";
 import { cache } from "react";
 import matter from "gray-matter";
 import { renderMarkdown, type TocItem } from "./markdown";
-import { estimateReadingTime } from "./post-meta";
+import { estimateReadingTime, extractExcerpt } from "./post-meta";
 
 export type { TocItem };
 
@@ -54,26 +54,6 @@ function normalizeDate(value: unknown): string | undefined {
     return value.trim();
   }
   return undefined;
-}
-
-function extractExcerpt(content: string, maxLength = 320): string | undefined {
-  const stripped = content
-    .replace(/^#+\s+.*$/gm, "")
-    .replace(/!\[.*?\]\(.*?\)/g, "")
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/[*_`>]/g, "")
-    .trim();
-
-  const firstParagraph = stripped.split(/\n\s*\n/)[0]?.trim();
-  if (!firstParagraph) return undefined;
-
-  if (firstParagraph.length <= maxLength) return firstParagraph;
-
-  const truncated = firstParagraph.slice(0, maxLength);
-  const lastPeriod = truncated.lastIndexOf(". ");
-  if (lastPeriod > maxLength * 0.5) return truncated.slice(0, lastPeriod + 1);
-  const lastSpace = truncated.lastIndexOf(" ");
-  return `${truncated.slice(0, lastSpace)}…`;
 }
 
 function toPostMeta(slug: string, data: Record<string, unknown>, content: string): PostMeta {
