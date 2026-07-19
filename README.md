@@ -8,33 +8,33 @@ A personal blog system built with Next.js App Router.
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Development server
-npm run dev
+pnpm dev
 
 # Type check
-npm run type-check
+pnpm typecheck
 
 # Lint
-npm run lint
+pnpm lint
 
 # Build for production
-npm run build
+pnpm build
 
 # Start production server
-npm start
+pnpm start
 ```
 
 ## Core Commands
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm start` | Start production server |
-| `npm run lint` | Run ESLint |
-| `npm run type-check` | Run TypeScript type checking |
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build for production |
+| `pnpm start` | Start production server |
+| `pnpm lint` | Run ESLint |
+| `pnpm typecheck` | Run TypeScript type checking |
 
 ## Project Structure
 
@@ -52,8 +52,7 @@ npm start
 │   ├── PROMPTS.md    # Common prompt templates
 │   └── CHECKLIST.md  # Self-review checklist
 ├── content/          # Content files
-│   ├── posts/        # Blog posts (Markdown)
-│   └── pages/        # Standalone pages
+│   └── posts/        # Blog posts (Markdown)
 ├── public/           # Static assets
 └── ...config files
 ```
@@ -119,8 +118,8 @@ docker compose down
 ### Self-hosted Server
 
 ```bash
-npm run build
-npm run start
+pnpm build
+pnpm start
 ```
 
 **Environment Variables**: Configure `NEXT_PUBLIC_*` variables for deployment.

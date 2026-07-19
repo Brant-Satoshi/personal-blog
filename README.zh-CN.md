@@ -8,33 +8,33 @@
 
 ```bash
 # 安装依赖
-npm install
+pnpm install
 
 # 本地开发
-npm run dev
+pnpm dev
 
 # 类型检查
-npm run type-check
+pnpm typecheck
 
 # Lint 检查
-npm run lint
+pnpm lint
 
 # 构建生产版本
-npm run build
+pnpm build
 
 # 启动生产版本
-npm start
+pnpm start
 ```
 
 ## 核心命令
 
 | 命令 | 作用 |
 |------|------|
-| `npm run dev` | 启动开发服务器 |
-| `npm run build` | 构建生产版本 |
-| `npm start` | 启动生产服务器 |
-| `npm run lint` | 运行 ESLint |
-| `npm run type-check` | 运行 TypeScript 类型检查 |
+| `pnpm dev` | 启动开发服务器 |
+| `pnpm build` | 构建生产版本 |
+| `pnpm start` | 启动生产服务器 |
+| `pnpm lint` | 运行 ESLint |
+| `pnpm typecheck` | 运行 TypeScript 类型检查 |
 
 ## 目录结构
 
@@ -52,8 +52,7 @@ npm start
 │   ├── PROMPTS.md    # 常用指令模板
 │   └── CHECKLIST.md  # 自检清单
 ├── content/          # 内容文件
-│   ├── posts/        # 博客文章 (Markdown)
-│   └── pages/        # 独立页面
+│   └── posts/        # 博客文章 (Markdown)
 ├── public/           # 静态资源
 └── ...配置文件
 ```
@@ -119,8 +118,8 @@ docker compose down
 ### 自建服务器
 
 ```bash
-npm run build
-npm run start
+pnpm build
+pnpm start
 ```
 
 **环境变量**：部署时需配置 `NEXT_PUBLIC_*` 相关变量。

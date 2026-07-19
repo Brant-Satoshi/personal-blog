@@ -20,25 +20,31 @@ Thanks for contributing. This project values clarity, stability, and maintainabi
 ### Install
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Run
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ### Build
 
 ```bash
-npm run build
+pnpm build
 ```
 
 ### Lint
 
 ```bash
-npm run lint
+pnpm lint
+```
+
+### Typecheck
+
+```bash
+pnpm typecheck
 ```
 
 ## Code Style
