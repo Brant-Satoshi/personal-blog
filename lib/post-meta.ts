@@ -25,13 +25,39 @@ export function formatLongDate(dateStr: string, locale: Locale): string {
   return `${month} ${ordinal(date.getUTCDate())}, ${date.getUTCFullYear()}`;
 }
 
-export function estimateReadingTime(content: string): number {
-  const prose = content
+// Single markdown→prose pass shared by excerpt extraction and reading time.
+// Drops fenced code, heading lines, images, HTML tags, and markup characters;
+// unwraps links and keeps inline-code text (readers read it). Blank-line
+// paragraph breaks survive so callers can split on them.
+function stripMarkdown(content: string): string {
+  return content
     .replace(/```[\s\S]*?```/g, " ")
-    .replace(/`[^`]*`/g, " ")
-    .replace(/!\[[^\]]*\]\([^)]+\)/g, " ")
+    .replace(/^#+\s+.*$/gm, "")
+    .replace(/!\[.*?\]\(.*?\)/g, "")
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/<[^>]+>/g, " ");
+    .replace(/<[^>]+>/g, " ")
+    .replace(/[*_`>]/g, "");
+}
+
+export function extractExcerpt(content: string, maxLength = 320): string | undefined {
+  const stripped = stripMarkdown(content).trim();
+
+  const firstParagraph = stripped.split(/\n\s*\n/)[0]?.trim();
+  if (!firstParagraph) return undefined;
+
+  if (firstParagraph.length <= maxLength) return firstParagraph;
+
+  const truncated = firstParagraph.slice(0, maxLength);
+  const boundary = Math.max(
+    truncated.lastIndexOf("。"),
+    truncated.lastIndexOf(". "),
+    truncated.lastIndexOf(" "),
+  );
+  return `${truncated.slice(0, boundary > maxLength * 0.5 ? boundary : maxLength)}…`;
+}
+
+export function estimateReadingTime(content: string): number {
+  const prose = stripMarkdown(content);
 
   const cjkCharacters = prose.match(/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/gu)?.length ?? 0;
   const latinWords = prose

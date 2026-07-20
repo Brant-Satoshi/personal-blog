@@ -4,7 +4,7 @@ import { cache } from "react";
 import matter from "gray-matter";
 import { parsePostFrontmatter } from "@/lib/content-schema";
 import { renderMarkdown, type TocItem } from "@/lib/markdown";
-import { estimateReadingTime } from "@/lib/post-meta";
+import { estimateReadingTime, extractExcerpt } from "@/lib/post-meta";
 
 export type { TocItem };
 
@@ -40,21 +40,8 @@ export type TaxonomyItem = { slug: string; name: string; count: number };
 const postsDirectory = path.join(process.cwd(), "content", "posts");
 const isProd = process.env.NODE_ENV === "production";
 
-function extractExcerpt(content: string, maxLength = 320): string | undefined {
-  const stripped = plainText(content);
-  const firstParagraph = stripped.split(/\n\s*\n/)[0]?.trim();
-  if (!firstParagraph) return undefined;
-  if (firstParagraph.length <= maxLength) return firstParagraph;
-
-  const truncated = firstParagraph.slice(0, maxLength);
-  const boundary = Math.max(
-    truncated.lastIndexOf("。"),
-    truncated.lastIndexOf(". "),
-    truncated.lastIndexOf(" "),
-  );
-  return `${truncated.slice(0, boundary > maxLength * 0.5 ? boundary : maxLength)}…`;
-}
-
+// Aggressive markdown→flat-text pass for the search index; excerpts use the
+// paragraph-preserving extractExcerpt from lib/post-meta instead.
 function plainText(content: string): string {
   return content
     .replace(/^#+\s+.*$/gm, "")

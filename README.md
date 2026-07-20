@@ -33,8 +33,10 @@ pnpm start
 | `pnpm dev` | Start development server |
 | `pnpm build` | Build for production |
 | `pnpm start` | Start production server |
-| `pnpm check` | Run ESLint, TypeScript, and tests |
+| `pnpm lint` | Run ESLint |
+| `pnpm typecheck` | Run TypeScript type checking |
 | `pnpm test` | Run the automated test suite |
+| `pnpm check` | Run ESLint, TypeScript, and tests |
 
 ## Project Structure
 
@@ -44,16 +46,14 @@ pnpm start
 │   ├── PRD.md        # Product Requirements Document
 │   ├── ARCHITECTURE.md   # Architecture documentation
 │   ├── WORKFLOW.md   # Workflow guidelines
-│   ├── ROADMAP.md    # Roadmap
-│   └── DECISIONS/    # Architecture Decision Records
+│   └── ROADMAP.md    # Roadmap
 ├── ai/               # AI-assisted development configuration
 │   ├── CONTEXT.md    # Project overview + key constraints
 │   ├── STYLE.md      # Code style guidelines
 │   ├── PROMPTS.md    # Common prompt templates
 │   └── CHECKLIST.md  # Self-review checklist
 ├── content/          # Content files
-│   ├── posts/        # Blog posts (Markdown)
-│   └── pages/        # Standalone pages
+│   └── posts/        # Blog posts (Markdown)
 ├── public/           # Static assets
 └── ...config files
 ```
@@ -119,8 +119,8 @@ docker compose down
 ### Self-hosted Server
 
 ```bash
-npm run build
-npm run start
+pnpm build
+pnpm start
 ```
 
 **Environment Variables**: Set `SITE_URL=https://your-domain.example` in production. `LIKES_DIR` defaults to `data/`; Docker Compose mounts a persistent named volume there.

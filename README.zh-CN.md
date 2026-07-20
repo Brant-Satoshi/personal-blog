@@ -33,8 +33,10 @@ pnpm start
 | `pnpm dev` | 启动开发服务器 |
 | `pnpm build` | 构建生产版本 |
 | `pnpm start` | 启动生产服务器 |
-| `pnpm check` | 运行 ESLint、TypeScript 和测试 |
+| `pnpm lint` | 运行 ESLint |
+| `pnpm typecheck` | 运行 TypeScript 类型检查 |
 | `pnpm test` | 运行自动测试 |
+| `pnpm check` | 运行 ESLint、TypeScript 和测试 |
 
 ## 目录结构
 
@@ -44,16 +46,14 @@ pnpm start
 │   ├── PRD.md        # 产品需求文档
 │   ├── ARCHITECTURE.md   # 架构文档
 │   ├── WORKFLOW.md   # 工作流规范
-│   ├── ROADMAP.md    # 路线图
-│   └── DECISIONS/    # 技术决策记录
+│   └── ROADMAP.md    # 路线图
 ├── ai/               # AI 辅助开发配置
 │   ├── CONTEXT.md    # 项目概览 + 关键约束
 │   ├── STYLE.md      # 代码风格规范
 │   ├── PROMPTS.md    # 常用指令模板
 │   └── CHECKLIST.md  # 自检清单
 ├── content/          # 内容文件
-│   ├── posts/        # 博客文章 (Markdown)
-│   └── pages/        # 独立页面
+│   └── posts/        # 博客文章 (Markdown)
 ├── public/           # 静态资源
 └── ...配置文件
 ```
@@ -119,8 +119,8 @@ docker compose down
 ### 自建服务器
 
 ```bash
-npm run build
-npm run start
+pnpm build
+pnpm start
 ```
 
 **环境变量**：部署时必须配置 `SITE_URL=https://你的域名`。`LIKES_DIR` 默认为项目下的 `data/`；Docker Compose 已配置持久卷。
