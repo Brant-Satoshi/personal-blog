@@ -3,6 +3,7 @@ title: LLM 核心概念
 date: 2026-05-21
 summary: 按工程栈分层梳理 Token、上下文窗口、采样参数、嵌入检索、工具调用与结构化输出等 12 个 LLM 核心概念，讲清各自作用、权衡与常见误区。
 category: AI
+tags: [LLM, Research, RAG]
 ---
 ## 摘要
 

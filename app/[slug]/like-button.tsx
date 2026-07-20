@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, useSyncExternalStore } from "react";
+import { useEffect, useId, useState, useSyncExternalStore } from "react";
 import type { CSSProperties } from "react";
 import { HeartGlyph } from "./heart-glyph";
 
@@ -31,6 +31,7 @@ type Fx = { kind: "pop" | "boom" | "shake"; n: number };
 // instances of the button in sync via useSyncExternalStore.
 const memoryLikes = new Map<string, number>();
 const totals = new Map<string, number>();
+const totalRequests = new Map<string, Promise<void>>();
 
 function storageKey(slug: string) {
   return `likes:${slug}`;
@@ -83,6 +84,26 @@ async function sendLike(slug: string) {
   }
 }
 
+function loadTotal(slug: string): Promise<void> {
+  const existing = totalRequests.get(slug);
+  if (existing) return existing;
+
+  const request = fetch(`/api/likes/${encodeURIComponent(slug)}`, {
+    cache: "no-store",
+  })
+    .then(async (response) => {
+      if (!response.ok) return;
+      const data = (await response.json()) as { likes?: unknown };
+      if (typeof data.likes === "number") {
+        totals.set(slug, data.likes);
+        window.dispatchEvent(new Event(LIKE_EVENT));
+      }
+    })
+    .catch(() => {});
+  totalRequests.set(slug, request);
+  return request;
+}
+
 type Props = {
   slug: string;
   label: string;
@@ -104,6 +125,10 @@ export function LikeButton({ slug, label, initialLikes }: Props) {
   );
   const [fx, setFx] = useState<Fx | null>(null);
   const [burst, setBurst] = useState(false);
+
+  useEffect(() => {
+    void loadTotal(slug);
+  }, [slug]);
 
   const full = ownLikes >= MAX_LIKES;
 

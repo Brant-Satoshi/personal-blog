@@ -85,7 +85,7 @@ function renderCodeGroup(
   const options = blocks
     .map(
       (b) =>
-        `<li class="code-lang-option" role="option" data-lang="${escapeHtml(b.lang)}" aria-selected="${b.lang === active}">` +
+        `<li class="code-lang-option" role="option" tabindex="${b.lang === active ? "0" : "-1"}" data-lang="${escapeHtml(b.lang)}" aria-selected="${b.lang === active}">` +
         check +
         `<span>${escapeHtml(langLabel(b.lang))}</span></li>`,
     )
@@ -119,11 +119,15 @@ export async function renderMarkdown(
   const highlighter = await getHighlighter();
 
   const toc: TocItem[] = [];
+  const headingIds = new Map<string, number>();
   const parser = new Marked({
     renderer: {
       heading(text: string, level: number) {
         const plain = stripHtml(text);
-        const id = slugify(plain);
+        const baseId = slugify(plain);
+        const seen = headingIds.get(baseId) ?? 0;
+        headingIds.set(baseId, seen + 1);
+        const id = seen === 0 ? baseId : `${baseId}-${seen + 1}`;
         if (level === 2 || level === 3) {
           toc.push({ id, text: plain, depth: level });
         }
@@ -131,8 +135,17 @@ export async function renderMarkdown(
       },
       link(href: string, title: string | null | undefined, text: string) {
         const titleAttr = title ? ` title="${escapeHtml(title)}"` : "";
-        const targetAttr = href.startsWith("#") ? "" : ` target="_blank" rel="noopener noreferrer"`;
+        const targetAttr = /^https?:\/\//i.test(href)
+          ? ` target="_blank" rel="noopener noreferrer"`
+          : "";
         return `<a href="${escapeHtml(href)}"${titleAttr}${targetAttr}>${text}</a>`;
+      },
+      image(href: string, title: string | null, text: string) {
+        const titleAttr = title ? ` title="${escapeHtml(title)}"` : "";
+        return `<img src="${escapeHtml(href)}" alt="${escapeHtml(text)}"${titleAttr} loading="lazy" decoding="async">`;
+      },
+      html(html: string) {
+        return escapeHtml(html);
       },
       code(code: string, infostring: string | undefined, escaped: boolean) {
         const lang = ((infostring ?? "").match(/^\S*/)?.[0] ?? "").toLowerCase();
@@ -154,6 +167,17 @@ export async function renderMarkdown(
         return `<div class="table-wrap"><table><thead>${header}</thead>${rows}</table></div>\n`;
       },
     },
+  });
+
+  parser.use({
+    extensions: [
+      {
+        name: "codeGroup",
+        renderer(token: Tokens.Generic) {
+          return token.html as string;
+        },
+      },
+    ],
   });
 
   const tokens = parser.lexer(content);
@@ -181,12 +205,10 @@ export async function renderMarkdown(
       }
     }
     if (blocks.length >= 2 && new Set(blocks.map((b) => b.lang)).size === blocks.length) {
-      const groupToken: Tokens.HTML = {
-        type: "html",
+      const groupToken: Tokens.Generic = {
+        type: "codeGroup",
         raw: "",
-        pre: false,
-        block: true,
-        text: renderCodeGroup(highlighter, blocks),
+        html: renderCodeGroup(highlighter, blocks),
       };
       tokens.splice(i, lastCodeIdx - i + 1, groupToken);
       i++;

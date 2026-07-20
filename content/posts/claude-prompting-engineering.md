@@ -3,6 +3,9 @@ title: Claude Code Prompt engineering
 date: 2026-05-19
 summary: 面向 Claude 最新模型的提示工程综合指南：从清晰表达、示例与 XML 结构，到 effort、自适应思考、工具使用和智能体系统，并附大量可直接套用的提示词片段与迁移要点。
 category: Tools
+tags: [Claude, Prompt Engineering, Agents]
+series: Claude Code 实践
+featured: true
 ---
 
 原文是一篇关于 **Claude 最新模型提示词最佳实践** 的文档。

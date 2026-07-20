@@ -1,15 +1,10 @@
-import { cookies } from "next/headers";
-
 export type Locale = "en" | "zh";
 
 export const LOCALES: readonly Locale[] = ["en", "zh"] as const;
-export const DEFAULT_LOCALE: Locale = "en";
-export const LOCALE_COOKIE = "locale";
+export const DEFAULT_LOCALE: Locale = "zh";
 
 export async function getLocale(): Promise<Locale> {
-  const store = await cookies();
-  const value = store.get(LOCALE_COOKIE)?.value;
-  return value === "zh" ? "zh" : "en";
+  return DEFAULT_LOCALE;
 }
 
 type Dict = {
@@ -22,7 +17,7 @@ type Dict = {
     notFound: string;
     categoryNotFound: string;
   };
-  nav: { posts: string; categories: string; about: string };
+  nav: { posts: string; categories: string; archive: string; about: string };
   actions: {
     search: string;
     close: string;
@@ -34,9 +29,13 @@ type Dict = {
     toLight: string;
     toDark: string;
     readingTime: (minutes: number) => string;
+    previousPage: string;
+    nextPage: string;
   };
-  search: { placeholder: string; hint: string; noResults: string };
+  search: { placeholder: string; hint: string; noResults: string; loading: string };
   home: { articles: string; browseBy: string; popular: string; empty: string };
+  archive: { eyebrow: string; title: string; subtitle: string };
+  taxonomy: { tags: string; series: string; browseTags: string; browseSeries: string };
   categories: {
     eyebrow: string;
     title: string;
@@ -54,6 +53,11 @@ type Dict = {
     introduction: string;
     toc: string;
     like: string;
+    related: string;
+    newer: string;
+    older: string;
+    copyLink: string;
+    copied: string;
   };
   about: { eyebrow: string; title: string; body1: string; body2: string };
   footer: { tag: string; about: string; feed: string };
@@ -72,6 +76,7 @@ const en: Dict = {
   nav: {
     posts: "Posts",
     categories: "Categories",
+    archive: "Archive",
     about: "About",
   },
   actions: {
@@ -85,17 +90,31 @@ const en: Dict = {
     toLight: "Switch to light mode",
     toDark: "Switch to dark mode",
     readingTime: (minutes: number) => `${minutes} min read`,
+    previousPage: "Previous",
+    nextPage: "Next",
   },
   search: {
     placeholder: "Search posts",
     hint: "Search posts by title, summary, or category.",
     noResults: "No posts match your search.",
+    loading: "Loading search index…",
   },
   home: {
     articles: "Articles and tutorials",
     browseBy: "Browse by category",
-    popular: "Popular content",
+    popular: "Featured content",
     empty: "No posts yet. Drop a markdown file in content/posts.",
+  },
+  archive: {
+    eyebrow: "All writing",
+    title: "Archive",
+    subtitle: "Every published note and article, collected by year.",
+  },
+  taxonomy: {
+    tags: "Tags",
+    series: "Series",
+    browseTags: "Browse writing by tag.",
+    browseSeries: "Follow a collection in order.",
   },
   categories: {
     eyebrow: "Browse by topic",
@@ -115,6 +134,11 @@ const en: Dict = {
     introduction: "Introduction",
     toc: "Table of Contents",
     like: "Like this post",
+    related: "Related reading",
+    newer: "Newer post",
+    older: "Older post",
+    copyLink: "Copy link",
+    copied: "Link copied",
   },
   about: {
     eyebrow: "About",
@@ -144,6 +168,7 @@ const zh: Dict = {
   nav: {
     posts: "文章",
     categories: "分类",
+    archive: "归档",
     about: "关于",
   },
   actions: {
@@ -157,17 +182,31 @@ const zh: Dict = {
     toLight: "切换到浅色模式",
     toDark: "切换到深色模式",
     readingTime: (minutes: number) => `${minutes} 分钟阅读`,
+    previousPage: "上一页",
+    nextPage: "下一页",
   },
   search: {
     placeholder: "搜索文章",
     hint: "按标题、摘要或分类搜索文章。",
     noResults: "没有匹配的文章。",
+    loading: "正在加载搜索索引…",
   },
   home: {
     articles: "文章与教程",
     browseBy: "分类",
-    popular: "热门",
+    popular: "精选",
     empty: "暂无文章。请在 content/posts 目录新建一个 markdown 文件。",
+  },
+  archive: {
+    eyebrow: "全部文章",
+    title: "归档",
+    subtitle: "按年份整理的全部已发布文章与笔记。",
+  },
+  taxonomy: {
+    tags: "标签",
+    series: "系列",
+    browseTags: "按标签浏览文章。",
+    browseSeries: "按系列连续阅读。",
   },
   categories: {
     eyebrow: "按主题浏览",
@@ -186,6 +225,11 @@ const zh: Dict = {
     introduction: "引言",
     toc: "目录",
     like: "点赞",
+    related: "相关阅读",
+    newer: "较新文章",
+    older: "较早文章",
+    copyLink: "复制链接",
+    copied: "链接已复制",
   },
   about: {
     eyebrow: "关于",

@@ -26,7 +26,7 @@ export function MermaidRenderer() {
       mermaid.initialize({
         startOnLoad: false,
         theme: isDark ? "dark" : "neutral",
-        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+        fontFamily: "var(--font-sans)",
         suppressErrorRendering: true,
       });
 

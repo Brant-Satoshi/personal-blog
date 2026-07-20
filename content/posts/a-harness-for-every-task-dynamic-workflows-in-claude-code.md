@@ -3,6 +3,8 @@ title: 每个任务都有一个执行框架：Claude Code 中的 dynamic workflo
 date: 2026-06-02
 summary: Anthropic 这篇 Claude Code 文章的中文翻译：Claude Code 现在可以按需编写并编排自己的多智能体执行框架。本文解释 dynamic workflows 的工作方式，以及最值得使用的模式。
 category: Tools
+tags: [Claude Code, Agents, Workflows]
+series: Claude Code 实践
 ---
 
 原文：[A harness for every task: dynamic workflows in Claude Code](https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code)。作者是 Anthropic 的 Thariq Shihipar 和 Sid Bidasaria。本文为中文翻译，图片来自原文。

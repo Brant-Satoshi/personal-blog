@@ -3,6 +3,9 @@ title: loops 入门：Claude Code 的 agentic loops
 date: 2026-06-30
 summary: Anthropic 这篇 Claude Code 文章的中文翻译：如何理解智能体循环，以及如何从基于回合的循环，逐步使用基于目标、基于时间和主动式循环。
 category: Tools
+tags: [Claude Code, Agents, Loops]
+series: Claude Code 实践
+featured: true
 ---
 
 原文：[Getting started with loops](https://claude.com/blog/getting-started-with-loops)。作者是 Anthropic 的 Delba de Oliveira 和 Michael Segner。本文为中文翻译，图片来自原文。

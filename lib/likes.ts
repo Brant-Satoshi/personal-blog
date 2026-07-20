@@ -44,6 +44,7 @@ export function addLike(slug: string): number {
     fs.renameSync(tmp, likesFile); // atomic — a crash never leaves a torn file
   } catch (error) {
     console.error("likes: failed to persist", error);
+    throw new Error("Could not persist like count", { cause: error });
   }
   return counts[slug];
 }

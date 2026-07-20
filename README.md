@@ -8,33 +8,33 @@ A personal blog system built with Next.js App Router.
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Development server
-npm run dev
+pnpm dev
 
 # Type check
-npm run type-check
+pnpm typecheck
 
 # Lint
-npm run lint
+pnpm lint
 
 # Build for production
-npm run build
+SITE_URL=http://localhost:3000 pnpm build
 
 # Start production server
-npm start
+pnpm start
 ```
 
 ## Core Commands
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm start` | Start production server |
-| `npm run lint` | Run ESLint |
-| `npm run type-check` | Run TypeScript type checking |
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build for production |
+| `pnpm start` | Start production server |
+| `pnpm check` | Run ESLint, TypeScript, and tests |
+| `pnpm test` | Run the automated test suite |
 
 ## Project Structure
 
@@ -123,4 +123,6 @@ npm run build
 npm run start
 ```
 
-**Environment Variables**: Configure `NEXT_PUBLIC_*` variables for deployment.
+**Environment Variables**: Set `SITE_URL=https://your-domain.example` in production. `LIKES_DIR` defaults to `data/`; Docker Compose mounts a persistent named volume there.
+
+`SITE_URL` is embedded into sitemap, robots, canonical, Open Graph, and JSON-LD output during static prerendering. Docker receives it through `--build-arg SITE_URL=...`; the GitHub deployment requires a Repository Variable with the same name and fails when it is missing or is not a production HTTPS origin.

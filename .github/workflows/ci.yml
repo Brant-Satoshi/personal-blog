@@ -53,5 +53,15 @@ jobs:
       - name: Typecheck
         run: npm run -s typecheck
 
+      - name: Test
+        run: npm run -s test
+
       - name: Build
         run: npm run -s build
+        env:
+          SITE_URL: https://ci.example.invalid
+
+      - name: Verify prerendered SEO URLs
+        run: npm run -s verify:seo
+        env:
+          SITE_URL: https://ci.example.invalid

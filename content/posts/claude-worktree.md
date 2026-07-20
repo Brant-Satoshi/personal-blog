@@ -3,6 +3,8 @@ title: Claude Code Worktree
 date: 2026-04-14
 summary: A quick sanity check to make sure the blog pipeline works end to end.
 category: Notes
+tags: [Claude Code, Git, Worktree]
+series: Claude Code 实践
 ---
 
 Claude Code 的 worktree 功能本质上是把 `git worktree` 包了一层,让你能并行跑多个互不干扰的 Claude 会话——每个会话有自己的目录、自己的分支、自己的上下文。下面是具体玩法。
