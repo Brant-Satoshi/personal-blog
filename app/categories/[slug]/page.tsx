@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
+  CATEGORIES,
   getCategoryBySlug,
   getCategoryDescription,
   getCategoryName,
@@ -14,8 +15,12 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-// No generateStaticParams: the root layout reads the `locale` cookie, which
-// opts every route into on-demand rendering, so a prerender list is never used.
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return CATEGORIES.map((category) => ({ slug: category.slug }));
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const locale = await getLocale();
@@ -80,10 +85,10 @@ export default async function CategoryPage({ params }: PageProps) {
               <PostCard
                 key={post.slug}
                 post={post}
-                variant="compact"
                 readMore={t.actions.readMore}
                 locale={locale}
                 readingTime={t.actions.readingTime(post.readingTime)}
+                variant="grid"
               />
             ))}
           </div>

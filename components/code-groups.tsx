@@ -30,6 +30,7 @@ export function CodeGroups() {
         if (current) current.textContent = label;
         group.querySelectorAll<HTMLElement>(".code-lang-option").forEach((option) => {
           option.setAttribute("aria-selected", String(option.dataset.lang === lang));
+          option.tabIndex = option.dataset.lang === lang ? 0 : -1;
         });
       }
     }
@@ -62,7 +63,25 @@ export function CodeGroups() {
     }
 
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") closeAllMenus();
+      if (event.key === "Escape") {
+        closeAllMenus();
+        return;
+      }
+      const target = event.target as HTMLElement | null;
+      const option = target?.closest<HTMLElement>(".code-lang-option");
+      if (option && (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault();
+        const label = option.querySelector("span")?.textContent ?? option.dataset.lang ?? "";
+        if (option.dataset.lang) selectLang(option.dataset.lang, label);
+        closeAllMenus();
+        return;
+      }
+      if (option && (event.key === "ArrowDown" || event.key === "ArrowUp")) {
+        event.preventDefault();
+        const options = Array.from(option.parentElement?.querySelectorAll<HTMLElement>(".code-lang-option") ?? []);
+        const delta = event.key === "ArrowDown" ? 1 : -1;
+        options[(options.indexOf(option) + delta + options.length) % options.length]?.focus();
+      }
     }
 
     document.addEventListener("click", onClick);

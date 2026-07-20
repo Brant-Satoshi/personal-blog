@@ -3,6 +3,8 @@ title: Generative UI：让 LLM 直接生成 UI 界面，而不只是文字墙
 date: 2026-05-26
 summary: Google Research 的 Generative UI 论文翻译与梳理。配合合适的 prompt 与工具，现代 LLM 可以稳定地为任意输入生成一个完整、可交互的网页，而不是再吐出一段 markdown。在 LMArena 上对比 markdown 输出，Generative UI 被偏好 82.8%；对比人类专家手写的网站，也在约 50% 的 case 中达到可比水平。
 category: AI
+tags: [Generative UI, LLM, Research]
+featured: true
 ---
 
 原文是 Google Research 在 arxiv 上发的论文 [Generative UI: LLMs are Effective UI Generators](https://arxiv.org/abs/2604.09577)（Yaniv Leviathan 等人，2026）。这里做一份中文翻译和梳理。论文配套的可交互样例在 [generativeui.github.io](https://generativeui.github.io)。文中插图均出自论文原文（图片版权归原作者所有）。

@@ -11,13 +11,25 @@ function configuredSiteUrl(): URL | undefined {
   if (!candidate) return undefined;
 
   try {
-    return new URL(candidate);
-  } catch {
-    return undefined;
+    const url = new URL(candidate);
+    if (url.protocol !== "http:" && url.protocol !== "https:") {
+      throw new Error("must use http or https");
+    }
+    return url;
+  } catch (error) {
+    throw new Error(`Invalid SITE_URL: ${candidate}`, { cause: error });
   }
 }
 
-export const SITE_URL = configuredSiteUrl() ?? new URL("http://localhost:3000");
+const configuredUrl = configuredSiteUrl();
+
+if (process.env.NODE_ENV === "production" && !configuredUrl) {
+  throw new Error(
+    "SITE_URL is required during production builds so canonical and social URLs are not generated with localhost",
+  );
+}
+
+export const SITE_URL = configuredUrl ?? new URL("http://localhost:3000");
 
 export function siteUrlFromRequest(requestUrl: string, requestHeaders: Headers): URL {
   const configured = configuredSiteUrl();

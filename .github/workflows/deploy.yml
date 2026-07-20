@@ -15,6 +15,7 @@ permissions:
 
 env:
   IMAGE: ghcr.io/brant-satoshi/personal-blog
+  SITE_URL: ${{ vars.SITE_URL }}
 
 jobs:
   build-and-push:
@@ -33,10 +34,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Validate production site URL
+        run: |
+          node -e 'const value=process.env.SITE_URL; if (!value) throw new Error("Repository variable SITE_URL is required"); const url=new URL(value); if (url.protocol !== "https:") throw new Error("SITE_URL must use https"); if (["localhost", "127.0.0.1"].includes(url.hostname)) throw new Error("SITE_URL must be the public production origin")'
+
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
           context: .
+          build-args: |
+            SITE_URL=${{ env.SITE_URL }}
           push: true
           tags: |
             ${{ env.IMAGE }}:latest
@@ -55,7 +62,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: GHCR_USER,GHCR_TOKEN,IMAGE,GITHUB_SHA
+          envs: GHCR_USER,GHCR_TOKEN,IMAGE,GITHUB_SHA,SITE_URL
           script: |
             set -e
 
@@ -68,6 +75,9 @@ jobs:
             services:
               blog:
                 image: ${IMAGE}:${GITHUB_SHA}
+                environment:
+                  LIKES_DIR: /app/data
+                  SITE_URL: "${SITE_URL}"
                 ports:
                   - "3000:3000"
                 restart: unless-stopped
@@ -85,3 +95,4 @@ jobs:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IMAGE: ${{ env.IMAGE }}
           GITHUB_SHA: ${{ github.sha }}
+          SITE_URL: ${{ env.SITE_URL }}

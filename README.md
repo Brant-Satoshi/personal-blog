@@ -20,7 +20,7 @@ pnpm typecheck
 pnpm lint
 
 # Build for production
-pnpm build
+SITE_URL=http://localhost:3000 pnpm build
 
 # Start production server
 pnpm start
@@ -35,6 +35,8 @@ pnpm start
 | `pnpm start` | Start production server |
 | `pnpm lint` | Run ESLint |
 | `pnpm typecheck` | Run TypeScript type checking |
+| `pnpm test` | Run the automated test suite |
+| `pnpm check` | Run ESLint, TypeScript, and tests |
 
 ## Project Structure
 
@@ -121,4 +123,6 @@ pnpm build
 pnpm start
 ```
 
-**Environment Variables**: Configure `NEXT_PUBLIC_*` variables for deployment.
+**Environment Variables**: Set `SITE_URL=https://your-domain.example` in production. `LIKES_DIR` defaults to `data/`; Docker Compose mounts a persistent named volume there.
+
+`SITE_URL` is embedded into sitemap, robots, canonical, Open Graph, and JSON-LD output during static prerendering. Docker receives it through `--build-arg SITE_URL=...`; the GitHub deployment requires a Repository Variable with the same name and fails when it is missing or is not a production HTTPS origin.

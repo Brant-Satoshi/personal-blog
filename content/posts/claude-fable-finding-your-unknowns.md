@@ -3,6 +3,9 @@ title: Claude Fable 5 实用指南：找到你的未知
 date: 2026-07-03
 summary: Anthropic 这篇 Claude Code 文章的中文译写：想更高质量地使用编程智能体，关键不在写更长的提示词，而在识别已知、未知，以及那些一开始完全看不见的盲点。
 category: Tools
+tags: [Claude Code, Agents, Engineering]
+series: Claude Code 实践
+featured: true
 ---
 
 原文：[A field guide to Claude Fable 5: Finding your unknowns](https://claude.com/blog/a-field-guide-to-claude-fable-finding-your-unknowns)。作者是 Anthropic 的 Thariq Shihipar。本文为中文译写/摘要版，图片来自原文。

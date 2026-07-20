@@ -17,3 +17,5 @@
 - TypeScript
 - Tailwind CSS 4
 - Markdown (内容管理)
+- Zod (Frontmatter 校验)
+- Vitest (自动测试)

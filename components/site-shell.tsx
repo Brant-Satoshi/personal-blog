@@ -1,10 +1,8 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { LanguageToggle } from "@/components/language-toggle";
 import { MobileNav } from "@/components/mobile-nav";
 import { HeaderShell } from "@/components/header-shell";
 import { SearchDialog } from "@/components/search-dialog";
-import { getAllPosts } from "@/lib/posts";
 import { getDict, getLocale } from "@/lib/i18n";
 
 export async function SiteHeader() {
@@ -14,6 +12,7 @@ export async function SiteHeader() {
   const navItems = [
     { href: "/", label: t.nav.posts },
     { href: "/categories", label: t.nav.categories },
+    { href: "/archive", label: t.nav.archive },
     { href: "/about", label: t.nav.about },
   ];
 
@@ -27,7 +26,7 @@ export async function SiteHeader() {
           Brant Satoshi<span className="text-azure">.</span>
         </Link>
 
-        <nav className="hidden items-center gap-9 text-[15px] font-medium text-ink/80 md:flex">
+        <nav className="hidden items-center gap-7 text-[15px] font-medium text-ink/80 md:flex">
           {navItems.map((item) => (
             <Link key={item.label} href={item.href} className="link-underline hover:text-ink">
               {item.label}
@@ -37,14 +36,13 @@ export async function SiteHeader() {
 
         <div className="flex items-center gap-1.5 text-ink/65">
           <SearchDialog
-            posts={getAllPosts()}
             searchLabel={t.actions.search}
             closeLabel={t.actions.close}
             placeholder={t.search.placeholder}
             hint={t.search.hint}
             noResults={t.search.noResults}
+            loading={t.search.loading}
           />
-          <LanguageToggle locale={locale} label={t.actions.switchLanguage} />
           <ThemeToggle toLightLabel={t.actions.toLight} toDarkLabel={t.actions.toDark} />
           <MobileNav items={navItems} menuLabel={t.actions.menu} />
         </div>
@@ -63,6 +61,8 @@ export async function SiteFooter() {
         <span>© {new Date().getUTCFullYear()} Brant · {t.footer.tag}</span>
         <div className="flex items-center gap-6">
           <Link href="/about" className="link-underline hover:text-ink">{t.footer.about}</Link>
+          <Link href="/tags" className="link-underline hover:text-ink">{t.taxonomy.tags}</Link>
+          <Link href="/series" className="link-underline hover:text-ink">{t.taxonomy.series}</Link>
           <Link href="/feed.xml" className="link-underline hover:text-ink">{t.footer.feed}</Link>
         </div>
       </div>

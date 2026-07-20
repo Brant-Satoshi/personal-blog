@@ -1,4 +1,4 @@
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import {
   absoluteUrl,
   siteUrlFromRequest,
@@ -19,7 +19,11 @@ function toRfc822Date(date: string): string {
   return new Date(`${date}T00:00:00Z`).toUTCString();
 }
 
-export function GET(request: Request): Response {
+function cdata(value: string): string {
+  return value.replace(/]]>/g, "]]]]><![CDATA[>");
+}
+
+export async function GET(request: Request): Promise<Response> {
   const posts = getAllPosts();
   const requestSiteUrl = siteUrlFromRequest(request.url, request.headers);
   const feedUrl = absoluteUrl("/feed.xml", requestSiteUrl);
@@ -28,8 +32,9 @@ export function GET(request: Request): Response {
     ? toRfc822Date(posts[0].updated ?? posts[0].date)
     : new Date(0).toUTCString();
 
-  const items = posts
-    .map((post) => {
+  const items = (
+    await Promise.all(posts.map(async (post) => {
+      const fullPost = await getPostBySlug(post.slug);
       const postUrl = absoluteUrl(`/${post.slug}`, requestSiteUrl);
       const category = post.category
         ? `\n      <category>${escapeXml(post.category)}</category>`
@@ -40,17 +45,18 @@ export function GET(request: Request): Response {
       <guid isPermaLink="true">${escapeXml(postUrl)}</guid>
       <pubDate>${toRfc822Date(post.date)}</pubDate>${category}
       <description>${escapeXml(post.summary || post.excerpt || "")}</description>
+      ${fullPost ? `<content:encoded><![CDATA[${cdata(fullPost.html)}]]></content:encoded>` : ""}
     </item>`;
-    })
-    .join("\n");
+    }))
+  ).join("\n");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>${escapeXml(SITE_NAME)}</title>
     <link>${escapeXml(siteUrl)}</link>
     <description>${escapeXml(SITE_DESCRIPTION)}</description>
-    <language>en</language>
+    <language>zh-CN</language>
     <lastBuildDate>${lastBuildDate}</lastBuildDate>
     <atom:link href="${escapeXml(feedUrl)}" rel="self" type="application/rss+xml" />
 ${items}

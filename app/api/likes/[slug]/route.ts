@@ -1,4 +1,5 @@
 import { addLike } from "@/lib/likes";
+import { getLikes } from "@/lib/likes";
 import { getAllPosts } from "@/lib/posts";
 
 type RouteContext = {
@@ -47,5 +48,20 @@ export async function POST(request: Request, { params }: RouteContext) {
     return Response.json({ error: "Too many requests" }, { status: 429 });
   }
 
-  return Response.json({ likes: addLike(slug) });
+  try {
+    return Response.json({ likes: addLike(slug) });
+  } catch {
+    return Response.json({ error: "Could not persist like" }, { status: 503 });
+  }
+}
+
+export async function GET(_request: Request, { params }: RouteContext) {
+  const { slug } = await params;
+  if (!getAllPosts().some((post) => post.slug === slug)) {
+    return Response.json({ error: "Unknown post" }, { status: 404 });
+  }
+  return Response.json(
+    { likes: getLikes(slug) },
+    { headers: { "Cache-Control": "no-store" } },
+  );
 }

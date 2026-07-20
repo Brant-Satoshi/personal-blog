@@ -48,10 +48,12 @@ export function extractExcerpt(content: string, maxLength = 320): string | undef
   if (firstParagraph.length <= maxLength) return firstParagraph;
 
   const truncated = firstParagraph.slice(0, maxLength);
-  const lastPeriod = truncated.lastIndexOf(". ");
-  if (lastPeriod > maxLength * 0.5) return truncated.slice(0, lastPeriod + 1);
-  const lastSpace = truncated.lastIndexOf(" ");
-  return `${truncated.slice(0, lastSpace)}…`;
+  const boundary = Math.max(
+    truncated.lastIndexOf("。"),
+    truncated.lastIndexOf(". "),
+    truncated.lastIndexOf(" "),
+  );
+  return `${truncated.slice(0, boundary > maxLength * 0.5 ? boundary : maxLength)}…`;
 }
 
 export function estimateReadingTime(content: string): number {

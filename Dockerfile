@@ -8,16 +8,21 @@ RUN pnpm install --frozen-lockfile
 
 FROM base AS builder
 WORKDIR /app
+ARG SITE_URL
+ENV SITE_URL=$SITE_URL
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN pnpm build
+RUN node -e 'const value=process.env.SITE_URL; if (!value) throw new Error("SITE_URL build argument is required"); const url=new URL(value); if (!/^https?:$/.test(url.protocol)) throw new Error("SITE_URL must use http or https")' \
+  && pnpm build
 
 FROM node:22-alpine AS runner
 WORKDIR /app
 
+ARG SITE_URL
 ENV NODE_ENV=production
 ENV HOSTNAME=0.0.0.0
 ENV PORT=3000
+ENV SITE_URL=$SITE_URL
 
 RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 nextjs

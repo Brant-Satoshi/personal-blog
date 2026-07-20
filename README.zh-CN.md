@@ -20,7 +20,7 @@ pnpm typecheck
 pnpm lint
 
 # 构建生产版本
-pnpm build
+SITE_URL=http://localhost:3000 pnpm build
 
 # 启动生产版本
 pnpm start
@@ -35,6 +35,8 @@ pnpm start
 | `pnpm start` | 启动生产服务器 |
 | `pnpm lint` | 运行 ESLint |
 | `pnpm typecheck` | 运行 TypeScript 类型检查 |
+| `pnpm test` | 运行自动测试 |
+| `pnpm check` | 运行 ESLint、TypeScript 和测试 |
 
 ## 目录结构
 
@@ -121,4 +123,6 @@ pnpm build
 pnpm start
 ```
 
-**环境变量**：部署时需配置 `NEXT_PUBLIC_*` 相关变量。
+**环境变量**：部署时必须配置 `SITE_URL=https://你的域名`。`LIKES_DIR` 默认为项目下的 `data/`；Docker Compose 已配置持久卷。
+
+`SITE_URL` 会在静态预渲染阶段写入 sitemap、robots、canonical、Open Graph 和 JSON-LD。Docker 构建通过 `--build-arg SITE_URL=...` 传入；GitHub 部署需要配置同名的 Repository Variable，缺失或不是生产 HTTPS 地址时 workflow 会直接失败。

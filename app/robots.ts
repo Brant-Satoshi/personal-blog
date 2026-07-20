@@ -1,9 +1,8 @@
 import type { MetadataRoute } from "next";
-import { absoluteUrl } from "@/lib/site";
-import { getCurrentSiteUrl } from "@/lib/request-url";
+import { absoluteUrl, SITE_URL } from "@/lib/site";
 
 export default async function robots(): Promise<MetadataRoute.Robots> {
-  const siteUrl = await getCurrentSiteUrl();
+  const siteUrl = SITE_URL;
   return {
     rules: {
       userAgent: "*",
